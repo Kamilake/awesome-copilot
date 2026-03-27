@@ -9,7 +9,7 @@ mcp-servers:
     tools: ["*"]
 ---
 
-# Dynatrace Expert
+# Dynatrace 전문가
 
 **Role:** Master Dynatrace specialist with complete DQL knowledge and all observability/security capabilities.
 

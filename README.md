@@ -1,59 +1,59 @@
 # 🤖 Awesome GitHub Copilot
 [![Powered by Awesome Copilot](https://img.shields.io/badge/Powered_by-Awesome_Copilot-blue?logo=githubcopilot)](https://aka.ms/awesome-github-copilot) [![GitHub contributors from allcontributors.org](https://img.shields.io/github/all-contributors/github/awesome-copilot?color=ee8449)](#contributors-)
 
-A community-created collection of custom agents, instructions, skills, hooks, workflows, and plugins to supercharge your GitHub Copilot experience.
+다양한 도메인, 언어 및 사용 사례에 걸쳐 GitHub Copilot 경험을 향상시키기 위한 커스텀 에이전트, 인스트럭션, 스킬, 훅, 워크플로우 및 플러그인의 커뮤니티 주도 컬렉션입니다.
 
 > [!TIP]
-> **Explore the full collection on the website →** [awesome-copilot.github.com](https://awesome-copilot.github.com)
+> **웹사이트에서 전체 컬렉션 탐색하기 →** [awesome-copilot.github.com](https://awesome-copilot.github.com)
 >
-> The website offers full-text search and filtering across hundreds of resources, plus the [Tools](https://awesome-copilot.github.com/tools) section for MCP servers and developer tooling, and the [Learning Hub](https://awesome-copilot.github.com/learning-hub) for guides and tutorials.
+> 웹사이트에서는 수백 개의 리소스에 대한 전문 검색 및 필터링, MCP 서버와 개발자 도구를 위한 [Tools](https://awesome-copilot.github.com/tools) 섹션, 가이드와 튜토리얼을 위한 [Learning Hub](https://awesome-copilot.github.com/learning-hub)를 제공합니다.
 >
-> **Using this collection in an AI agent?** A machine-readable [`llms.txt`](https://awesome-copilot.github.com/llms.txt) is available with structured listings of all agents, instructions, and skills.
+> **AI 에이전트에서 이 컬렉션을 사용하시나요?** 모든 에이전트, 인스트럭션 및 스킬의 구조화된 목록이 포함된 기계 판독 가능한 [`llms.txt`](https://awesome-copilot.github.com/llms.txt)를 이용할 수 있습니다.
 
 ## 📖 Learning Hub
 
-New to GitHub Copilot customization? The **[Learning Hub](https://awesome-copilot.github.com/learning-hub)** on the website offers curated articles, walkthroughs, and reference material — covering everything from core concepts like agents, skills, and instructions to hands-on guides for hooks, agentic workflows, MCP servers, and the Copilot coding agent.
+GitHub Copilot 커스터마이즈가 처음이신가요? 웹사이트의 **[Learning Hub](https://awesome-copilot.github.com/learning-hub)**에서 에이전트, 스킬, 인스트럭션 등 핵심 개념부터 훅, agentic workflows, MCP 서버, Copilot 코딩 에이전트에 대한 실습 가이드까지 다루는 엄선된 아티클, 워크스루 및 참고 자료를 제공합니다.
 
-## What's in this repo
+## 이 저장소의 내용
 
-| Resource | Description | Browse |
+| 리소스 | 설명 | 탐색 |
 |----------|-------------|--------|
-| 🤖 [Agents](docs/README.agents.md) | Specialized Copilot agents that integrate with MCP servers | [All agents →](https://awesome-copilot.github.com/agents) |
-| 📋 [Instructions](docs/README.instructions.md) | Coding standards applied automatically by file pattern | [All instructions →](https://awesome-copilot.github.com/instructions) |
-| 🎯 [Skills](docs/README.skills.md) | Self-contained folders with instructions and bundled assets | [All skills →](https://awesome-copilot.github.com/skills) |
-| 🔌 [Plugins](docs/README.plugins.md) | Curated bundles of agents and skills for specific workflows | [All plugins →](https://awesome-copilot.github.com/plugins) |
-| 🪝 [Hooks](docs/README.hooks.md) | Automated actions triggered during Copilot agent sessions | [All hooks →](https://awesome-copilot.github.com/hooks) |
-| ⚡ [Agentic Workflows](docs/README.workflows.md) | AI-powered GitHub Actions automations written in markdown | [All workflows →](https://awesome-copilot.github.com/workflows) |
-| 🍳 [Cookbook](cookbook/README.md) | Copy-paste-ready recipes for working with Copilot APIs | — |
+| 🤖 [Agents](docs/README.agents.md) | MCP 서버와 통합되는 특화된 Copilot 에이전트 | [모든 에이전트 →](https://awesome-copilot.github.com/agents) |
+| 📋 [Instructions](docs/README.instructions.md) | 파일 패턴별로 자동 적용되는 코딩 표준 | [모든 인스트럭션 →](https://awesome-copilot.github.com/instructions) |
+| 🎯 [Skills](docs/README.skills.md) | 인스트럭션과 번들 에셋이 포함된 독립형 폴더 | [모든 스킬 →](https://awesome-copilot.github.com/skills) |
+| 🔌 [Plugins](docs/README.plugins.md) | 특정 워크플로우를 위한 에이전트와 스킬의 큐레이션된 번들 | [모든 플러그인 →](https://awesome-copilot.github.com/plugins) |
+| 🪝 [Hooks](docs/README.hooks.md) | Copilot 에이전트 세션 중 트리거되는 자동화된 액션 | [모든 훅 →](https://awesome-copilot.github.com/hooks) |
+| ⚡ [Agentic Workflows](docs/README.workflows.md) | 마크다운으로 작성된 AI 기반 GitHub Actions 자동화 | [모든 워크플로우 →](https://awesome-copilot.github.com/workflows) |
+| 🍳 [Cookbook](cookbook/README.md) | Copilot API 작업을 위한 복사-붙여넣기 가능한 레시피 | — |
 
 ## 🛠️ Tools
 
-Looking at how to use Awesome Copilot? Check out the **[Tools section](https://awesome-copilot.github.com/tools)** of the website for MCP servers, editor integrations, and other developer tooling to get the most out of this collection.
+Awesome Copilot 사용 방법을 찾고 계신가요? 웹사이트의 **[Tools 섹션](https://awesome-copilot.github.com/tools)**에서 이 컬렉션을 최대한 활용할 수 있는 MCP 서버, 에디터 통합 및 기타 개발자 도구를 확인하십시오.
 
-## Install a Plugin
+## 플러그인 설치
 
-For most users, the **Awesome Copilot** marketplace is already registered in the Copilot CLI/VS Code, so you can install a plugin directly:
+대부분의 사용자에게 **Awesome Copilot** 마켓플레이스는 이미 Copilot CLI/VS Code에 등록되어 있으므로 플러그인을 직접 설치할 수 있습니다:
 
 ```bash
 copilot plugin install <plugin-name>@awesome-copilot
 ```
 
-If you are using an older Copilot CLI version or a custom setup and see an error that the marketplace is unknown, register it once and then install:
+이전 버전의 Copilot CLI나 커스텀 설정을 사용 중이고 마켓플레이스를 알 수 없다는 오류가 표시되면, 한 번 등록한 후 설치합니다:
 
 ```bash
 copilot plugin marketplace add github/awesome-copilot
 copilot plugin install <plugin-name>@awesome-copilot
 ```
 
-## Contributing
+## 기여
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) · [AGENTS.md](AGENTS.md) for AI agent guidance · [Security](SECURITY.md) · [Code of Conduct](CODE_OF_CONDUCT.md)
+[CONTRIBUTING.md](CONTRIBUTING.md) · AI 에이전트 가이드는 [AGENTS.md](AGENTS.md) · [보안](SECURITY.md) · [행동 강령](CODE_OF_CONDUCT.md)을 참조하십시오.
 
-> The customizations here are sourced from third-party developers. Please inspect any agent and its documentation before installing.
+> 여기의 커스터마이즈는 서드파티 개발자가 제공한 것입니다. 설치하기 전에 에이전트와 해당 문서를 검토해 주십시오.
 
-## Contributors ✨
+## 기여자 ✨
 
-Thanks goes to these wonderful people ([emoji key](./CONTRIBUTING.md#contributors-recognition)):
+이 멋진 분들에게 감사드립니다 ([이모지 키](./CONTRIBUTING.md#기여자-인정)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -442,18 +442,18 @@ Thanks goes to these wonderful people ([emoji key](./CONTRIBUTING.md#contributor
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+이 프로젝트는 [all-contributors](https://github.com/all-contributors/all-contributors) 사양을 따릅니다. 모든 종류의 기여를 환영합니다!
 
-## 📚 Additional Resources
+## 📚 추가 리소스
 
-- [VS Code Copilot Customization Documentation](https://code.visualstudio.com/docs/copilot/copilot-customization) - Official Microsoft documentation
-- [GitHub Copilot Chat Documentation](https://code.visualstudio.com/docs/copilot/chat/copilot-chat) - Complete chat feature guide
-- [VS Code Settings](https://code.visualstudio.com/docs/getstarted/settings) - General VS Code configuration guide
+- [VS Code Copilot 커스터마이즈 문서](https://code.visualstudio.com/docs/copilot/copilot-customization) - Microsoft 공식 문서
+- [GitHub Copilot Chat 문서](https://code.visualstudio.com/docs/copilot/chat/copilot-chat) - 채팅 기능 전체 가이드
+- [VS Code 설정](https://code.visualstudio.com/docs/getstarted/settings) - 일반 VS Code 설정 가이드
 
-## ™️ Trademarks
+## ™️ 상표
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
-trademarks or logos is subject to and must follow
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+이 프로젝트에는 프로젝트, 제품 또는 서비스에 대한 상표나 로고가 포함될 수 있습니다. Microsoft
+상표 또는 로고의 승인된 사용은
+[Microsoft의 상표 및 브랜드 가이드라인](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general)을 따라야 합니다.
+이 프로젝트의 수정된 버전에서 Microsoft 상표 또는 로고를 사용할 때 혼동을 야기하거나 Microsoft의 후원을 암시해서는 안 됩니다.
+서드파티 상표 또는 로고의 사용은 해당 서드파티의 정책을 따릅니다.

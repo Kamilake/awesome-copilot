@@ -4,98 +4,98 @@ description: Support development of .NET (OOP) WinForms Designer compatible Apps
 #version: 2025-10-24a
 ---
 
-# WinForms Development Guidelines
+# WinForms 개발 가이드라인
 
-These are the coding and design guidelines and instructions for WinForms Expert Agent development.
-When customer asks/requests will require the creation of new projects
+이것은 WinForms Expert Agent 개발을 위한 코딩 및 디자인 가이드라인과 지침입니다.
+고객이 새 프로젝트 생성을 요청/요구하는 경우
 
-**New Projects:**
-* Prefer .NET 10+. Note: MVVM Binding requires .NET 8+.
-* Prefer `Application.SetColorMode(SystemColorMode.System);` in `Program.cs` at application startup for DarkMode support (.NET 9+).
-* Make Windows API projection available by default. Assume 10.0.22000.0 as minimum Windows version requirement.
+**새 프로젝트:**
+* .NET 10+ 선호. 참고: MVVM 바인딩은 .NET 8+ 필요.
+* 다크모드 지원을 위해 `Program.cs`에서 애플리케이션 시작 시 `Application.SetColorMode(SystemColorMode.System);` 선호 (.NET 9+).
+* 기본적으로 Windows API 프로젝션을 사용 가능하게 설정. 최소 Windows 버전 요구사항으로 10.0.22000.0 가정.
 ```xml
     <TargetFramework>net10.0-windows10.0.22000.0</TargetFramework>
 ```
 
-**Critical:**
+**중요:**
 
-**📦 NUGET:** New projects or supporting class libraries often need special NuGet packages. 
-Follow these rules strictly:
- 
-* Prefer well-known, stable, and widely adopted NuGet packages - compatible with the project's TFM.
-* Define the versions to the latest STABLE major version, e.g.: `[2.*,)`
+**📦 NUGET:** 새 프로젝트나 지원 클래스 라이브러리에는 종종 특수 NuGet 패키지가 필요합니다.
+다음 규칙을 엄격히 따르세요:
 
-**⚙️ Configuration and App-wide HighDPI settings:** *app.config* files are discouraged for configuration for .NET.
-For setting the HighDpiMode, use e.g. `Application.SetHighDpiMode(HighDpiMode.SystemAware)` at application startup, not *app.config* nor *manifest* files.
+* 잘 알려지고 안정적이며 널리 채택된 NuGet 패키지를 선호하세요 - 프로젝트의 TFM과 호환되는 것.
+* 최신 안정 메이저 버전으로 버전을 정의하세요, 예: `[2.*,)`
 
-Note: `SystemAware` is standard for .NET, use `PerMonitorV2` when explicitly requested.
+**⚙️ 설정 및 앱 전체 HighDPI 설정:** .NET에서는 설정을 위한 *app.config* 파일이 권장되지 않습니다.
+HighDpiMode 설정에는 *app.config*이나 *manifest* 파일이 아닌 애플리케이션 시작 시 `Application.SetHighDpiMode(HighDpiMode.SystemAware)` 등을 사용하세요.
 
-**VB Specifics:**
-- In VB, do NOT create a *Program.vb* - rather use the VB App Framework.
-- For the specific settings, make sure the VB code file *ApplicationEvents.vb* is available. 
-  Handle the `ApplyApplicationDefaults` event there and use the passed EventArgs to set the App defaults via its properties.
+참고: `SystemAware`는 .NET의 표준이며, 명시적으로 요청된 경우에만 `PerMonitorV2`를 사용하세요.
 
-| Property | Type | Purpose | 
+**VB 관련 사항:**
+- VB에서는 *Program.vb*를 생성하지 마세요 - 대신 VB App Framework를 사용하세요.
+- 특정 설정을 위해 VB 코드 파일 *ApplicationEvents.vb*가 사용 가능한지 확인하세요.
+  거기서 `ApplyApplicationDefaults` 이벤트를 처리하고 전달된 EventArgs를 사용하여 속성을 통해 앱 기본값을 설정하세요.
+
+| 속성 | 타입 | 목적 |
 |----------|------|---------|
-| ColorMode | `SystemColorMode` | DarkMode setting for the application. Prefer `System`. Other options: `Dark`, `Classic`. |
-| Font | `Font` | Default Font for the whole Application. |	
-| HighDpiMode | `HighDpiMode` | `SystemAware` is default. `PerMonitorV2` only when asked for HighDPI Multi-Monitor scenarios. |
+| ColorMode | `SystemColorMode` | 애플리케이션의 다크모드 설정. `System` 선호. 기타 옵션: `Dark`, `Classic`. |
+| Font | `Font` | 전체 애플리케이션의 기본 폰트. |
+| HighDpiMode | `HighDpiMode` | `SystemAware`가 기본값. HighDPI 멀티 모니터 시나리오를 요청받은 경우에만 `PerMonitorV2`. |
 
 ---
 
 
-## 🎯 Critical Generic WinForms Issue: Dealing with Two Code Contexts
+## 🎯 핵심 일반 WinForms 이슈: 두 가지 코드 컨텍스트 다루기
 
-| Context | Files/Location | Language Level | Key Rule |
+| 컨텍스트 | 파일/위치 | 언어 수준 | 핵심 규칙 |
 |---------|----------------|----------------|----------|
-| **Designer Code** | *.designer.cs*, inside `InitializeComponent` | Serialization-centric (assume C# 2.0 language features) | Simple, predictable, parsable |
-| **Regular Code** | *.cs* files, event handlers, business logic | Modern C# 11-14 | Use ALL modern features aggressively |
+| **디자이너 코드** | *.designer.cs*, `InitializeComponent` 내부 | 직렬화 중심 (C# 2.0 언어 기능 가정) | 단순하고, 예측 가능하고, 파싱 가능 |
+| **일반 코드** | *.cs* 파일, 이벤트 핸들러, 비즈니스 로직 | 최신 C# 11-14 | 모든 최신 기능을 적극적으로 사용 |
 
-**Decision:** In *.designer.cs* or `InitializeComponent` → Designer rules. Otherwise → Modern C# rules.
+**결정:** *.designer.cs* 또는 `InitializeComponent` 내부 → 디자이너 규칙. 그 외 → 최신 C# 규칙.
 
 ---
 
-## 🚨 Designer File Rules (TOP PRIORITY)
+## 🚨 디자이너 파일 규칙 (최우선)
 
-⚠️ Make sure Diagnostic Errors and build/compile errors are eventually completely addressed!
+⚠️ 진단 오류와 빌드/컴파일 오류가 최종적으로 완전히 해결되었는지 확인하세요!
 
-### ❌ Prohibited in InitializeComponent
+### ❌ InitializeComponent에서 금지
 
-| Category | Prohibited | Why |
+| 카테고리 | 금지 항목 | 이유 |
 |----------|-----------|-----|
-| Control Flow | `if`, `for`, `foreach`, `while`, `goto`, `switch`, `try`/`catch`, `lock`, `await`, VB: `On Error`/`Resume` | Designer cannot parse |
-| Operators | `? :` (ternary), `??`/`?.`/`?[]` (null coalescing/conditional), `nameof()` | Not in serialization format |
-| Functions | Lambdas, local functions, collection expressions (`...=[]` or `...=[1,2,3]`) | Breaks Designer parser |
-| Backing fields | Only add variables with class field scope to ControlCollections, never local variables! | Designer cannot parse |
+| 제어 흐름 | `if`, `for`, `foreach`, `while`, `goto`, `switch`, `try`/`catch`, `lock`, `await`, VB: `On Error`/`Resume` | 디자이너가 파싱할 수 없음 |
+| 연산자 | `? :` (삼항), `??`/`?.`/`?[]` (null 병합/조건부), `nameof()` | 직렬화 형식에 없음 |
+| 함수 | 람다, 로컬 함수, 컬렉션 표현식 (`...=[]` 또는 `...=[1,2,3]`) | 디자이너 파서를 깨뜨림 |
+| 백킹 필드 | ControlCollections에는 클래스 필드 범위의 변수만 추가, 로컬 변수는 절대 안 됨! | 디자이너가 파싱할 수 없음 |
 
-**Allowed method calls:** Designer-supporting interface methods like `SuspendLayout`, `ResumeLayout`, `BeginInit`, `EndInit`
+**허용되는 메서드 호출:** `SuspendLayout`, `ResumeLayout`, `BeginInit`, `EndInit` 같은 디자이너 지원 인터페이스 메서드
 
-### ❌ Prohibited in *.designer.cs* File
+### ❌ *.designer.cs* 파일에서 금지
 
-❌ Method definitions (except `InitializeComponent`, `Dispose`, preserve existing additional constructors)  
-❌ Properties  
-❌ Lambda expressions, DO ALSO NOT bind events in `InitializeComponent` to Lambdas!
-❌ Complex logic
-❌ `??`/`?.`/`?[]` (null coalescing/conditional), `nameof()`
-❌ Collection Expressions
+❌ 메서드 정의 (`InitializeComponent`, `Dispose` 제외, 기존 추가 생성자 보존)
+❌ 속성
+❌ 람다 표현식, `InitializeComponent`에서 이벤트를 람다에 바인딩하는 것도 금지!
+❌ 복잡한 로직
+❌ `??`/`?.`/`?[]` (null 병합/조건부), `nameof()`
+❌ 컬렉션 표현식
 
-### ✅ Correct Pattern
+### ✅ 올바른 패턴
 
-✅ File-scope namespace definitions (preferred)
+✅ 파일 범위 네임스페이스 정의 (선호)
 
-### 📋 Required Structure of InitializeComponent Method
+### 📋 InitializeComponent 메서드의 필수 구조
 
-| Order | Step | Example |
+| 순서 | 단계 | 예시 |
 |-------|------|---------|
-| 1 | Instantiate controls | `button1 = new Button();` |
-| 2 | Create components container | `components = new Container();` |
-| 3 | Suspend layout for container(s) | `SuspendLayout();` |
-| 4 | Configure controls | Set properties for each control |
-| 5 | Configure Form/UserControl LAST | `ClientSize`, `Controls.Add()`, `Name` |
-| 6 | Resume layout(s) | `ResumeLayout(false);` |
-| 7 | Backing fields at EOF | After last `#endregion` after last method. | `_btnOK`, `_txtFirstname` - C# scope is `private`, VB scope is `Friend WithEvents` |
+| 1 | 컨트롤 인스턴스화 | `button1 = new Button();` |
+| 2 | 컴포넌트 컨테이너 생성 | `components = new Container();` |
+| 3 | 컨테이너 레이아웃 일시 중지 | `SuspendLayout();` |
+| 4 | 컨트롤 설정 | 각 컨트롤의 속성 설정 |
+| 5 | Form/UserControl을 마지막에 설정 | `ClientSize`, `Controls.Add()`, `Name` |
+| 6 | 레이아웃 재개 | `ResumeLayout(false);` |
+| 7 | EOF에 백킹 필드 | 마지막 메서드 뒤의 마지막 `#endregion` 뒤. | `_btnOK`, `_txtFirstname` - C# 범위는 `private`, VB 범위는 `Friend WithEvents` |
 
-(Try meaningful naming of controls, derive style from existing codebase, if possible.)
+(컨트롤의 의미 있는 명명을 시도하고, 가능하면 기존 코드베이스에서 스타일을 도출하세요.)
 
 ```csharp
 private void InitializeComponent()
@@ -105,38 +105,38 @@ private void InitializeComponent()
     _lblDogographerCredit = new Label();
     _btnAdopt = new Button();
     _btnMaybeLater = new Button();
-    
+
     // 2. Components
     components = new Container();
-    
+
     // 3. Suspend
     ((ISupportInitialize)_picDogPhoto).BeginInit();
     SuspendLayout();
-    
+
     // 4. Configure controls
     _picDogPhoto.Location = new Point(12, 12);
     _picDogPhoto.Name = "_picDogPhoto";
     _picDogPhoto.Size = new Size(380, 285);
     _picDogPhoto.SizeMode = PictureBoxSizeMode.Zoom;
     _picDogPhoto.TabStop = false;
-    
+
     _lblDogographerCredit.AutoSize = true;
     _lblDogographerCredit.Location = new Point(12, 300);
     _lblDogographerCredit.Name = "_lblDogographerCredit";
     _lblDogographerCredit.Size = new Size(200, 25);
     _lblDogographerCredit.Text = "Photo by: Professional Dogographer";
-    
+
     _btnAdopt.Location = new Point(93, 340);
     _btnAdopt.Name = "_btnAdopt";
     _btnAdopt.Size = new Size(114, 68);
     _btnAdopt.Text = "Adopt!";
 
-    // OK, if BtnAdopt_Click is defined in main .cs file
+    // OK, BtnAdopt_Click이 메인 .cs 파일에 정의된 경우
     _btnAdopt.Click += BtnAdopt_Click;
-    
-    // NOT AT ALL OK, we MUST NOT have Lambdas in InitializeComponent!
+
+    // 절대 안 됨, InitializeComponent에 람다가 있으면 안 됩니다!
     _btnAdopt.Click += (s, e) => Close();
-    
+
     // 5. Configure Form LAST
     AutoScaleDimensions = new SizeF(13F, 32F);
     AutoScaleMode = AutoScaleMode.Font;
@@ -147,7 +147,7 @@ private void InitializeComponent()
     Name = "DogAdoptionDialog";
     Text = "Find Your Perfect Companion!";
     ((ISupportInitialize)_picDogPhoto).EndInit();
-    
+
     // 6. Resume
     ResumeLayout(false);
     PerformLayout();
@@ -162,56 +162,56 @@ private Label _lblDogographerCredit;
 private Button _btnAdopt;
 ```
 
-**Remember:** Complex UI configuration logic goes in main *.cs* file, NOT *.designer.cs*.
+**기억하세요:** 복잡한 UI 설정 로직은 메인 *.cs* 파일에 넣으세요, *.designer.cs*가 아닙니다.
 
 ---
 
 ---
 
-## Modern C# Features (Regular Code Only)
+## 최신 C# 기능 (일반 코드에만)
 
-**Apply ONLY to `.cs` files (event handlers, business logic). NEVER in `.designer.cs` or `InitializeComponent`.**
+**`.cs` 파일(이벤트 핸들러, 비즈니스 로직)에만 적용하세요. `.designer.cs`나 `InitializeComponent`에는 절대 안 됩니다.**
 
-### Style Guidelines
+### 스타일 가이드라인
 
-| Category | Rule | Example |
+| 카테고리 | 규칙 | 예시 |
 |----------|------|---------|
-| Using directives | Assume global | `System.Windows.Forms`, `System.Drawing`, `System.ComponentModel` |
-| Primitives | Type names | `int`, `string`, not `Int32`, `String` |
-| Instantiation | Target-typed | `Button button = new();` |
-| prefer types over `var` | `var` only with obvious and/or awkward long names | `var lookup = ReturnsDictOfStringAndListOfTuples()` // type clear |
-| Event handlers | Nullable sender | `private void Handler(object? sender, EventArgs e)` |
-| Events | Nullable | `public event EventHandler? MyEvent;` |
-| Trivia | Empty lines before `return`/code blocks | Prefer empty line before |
-| `this` qualifier | Avoid | Always in NetFX, otherwise for disambiguation or extension methods |
-| Argument validation | Always; throw helpers for .NET 8+ | `ArgumentNullException.ThrowIfNull(control);` |
-| Using statements | Modern syntax | `using frmOptions modalOptionsDlg = new(); // Always dispose modal Forms!` |
+| Using 지시문 | 전역 가정 | `System.Windows.Forms`, `System.Drawing`, `System.ComponentModel` |
+| 기본 타입 | 타입 이름 | `int`, `string`, `Int32`나 `String`이 아님 |
+| 인스턴스화 | 대상 타입 지정 | `Button button = new();` |
+| `var`보다 타입 선호 | `var`는 명확하거나 이름이 긴 경우에만 | `var lookup = ReturnsDictOfStringAndListOfTuples()` // 타입 명확 |
+| 이벤트 핸들러 | Nullable sender | `private void Handler(object? sender, EventArgs e)` |
+| 이벤트 | Nullable | `public event EventHandler? MyEvent;` |
+| 사소한 것 | `return`/코드 블록 전 빈 줄 | 앞에 빈 줄 선호 |
+| `this` 한정자 | 피하기 | NetFX에서는 항상, 그 외에는 모호성 해소나 확장 메서드용 |
+| 인수 검증 | 항상; .NET 8+에서는 throw 헬퍼 | `ArgumentNullException.ThrowIfNull(control);` |
+| Using 문 | 최신 구문 | `using frmOptions modalOptionsDlg = new(); // 모달 Form은 항상 dispose!` |
 
-### Property Patterns (⚠️ CRITICAL - Common Bug Source!)
+### 속성 패턴 (⚠️ 중요 - 일반적인 버그 원인!)
 
-| Pattern | Behavior | Use Case | Memory |
+| 패턴 | 동작 | 사용 사례 | 메모리 |
 |---------|----------|----------|--------|
-| `=> new Type()` | Creates NEW instance EVERY access | ⚠️ LIKELY MEMORY LEAK! | Per-access allocation |
-| `{ get; } = new()` | Creates ONCE at construction | Use for: Cached/constant | Single allocation |
-| `=> _field ?? Default` | Computed/dynamic value | Use for: Calculated property | Varies |
+| `=> new Type()` | 매 접근마다 새 인스턴스 생성 | ⚠️ 메모리 누수 가능성! | 접근당 할당 |
+| `{ get; } = new()` | 생성 시 한 번만 생성 | 용도: 캐시/상수 | 단일 할당 |
+| `=> _field ?? Default` | 계산/동적 값 | 용도: 계산된 속성 | 다양 |
 
 ```csharp
-// ❌ WRONG - Memory leak
+// ❌ 잘못됨 - 메모리 누수
 public Brush BackgroundBrush => new SolidBrush(BackColor);
 
-// ✅ CORRECT - Cached
+// ✅ 올바름 - 캐시됨
 public Brush BackgroundBrush { get; } = new SolidBrush(Color.White);
 
-// ✅ CORRECT - Dynamic
+// ✅ 올바름 - 동적
 public Font CurrentFont => _customFont ?? DefaultFont;
 ```
 
-**Never "refactor" one to another without understanding semantic differences!**
+**의미적 차이를 이해하지 않고 하나를 다른 것으로 "리팩토링"하지 마세요!**
 
-### Prefer Switch Expressions over If-Else Chains
+### If-Else 체인보다 Switch 표현식 선호
 
 ```csharp
-// ✅ NEW: Instead of countless IFs:
+// ✅ 새로운 방식: 수많은 IF 대신:
 private Color GetStateColor(ControlState state) => state switch
 {
     ControlState.Normal => SystemColors.Control,
@@ -221,114 +221,114 @@ private Color GetStateColor(ControlState state) => state switch
 };
 ```
 
-### Prefer Pattern Matching in Event Handlers
+### 이벤트 핸들러에서 패턴 매칭 선호
 
 ```csharp
-// Note nullable sender from .NET 8+ on!
+// .NET 8+부터 nullable sender에 주의!
 private void Button_Click(object? sender, EventArgs e)
 {
     if (sender is not Button button || button.Tag is null)
         return;
-    
-    // Use button here
+
+    // 여기서 button 사용
 }
 ```
 
-## When designing Form/UserControl from scratch
+## 처음부터 Form/UserControl 설계 시
 
-### File Structure
+### 파일 구조
 
-| Language | Files | Inheritance |
+| 언어 | 파일 | 상속 |
 |----------|-------|-------------|
-| C# | `FormName.cs` + `FormName.Designer.cs` | `Form` or `UserControl` |
-| VB.NET | `FormName.vb` + `FormName.Designer.vb` | `Form` or `UserControl` |
+| C# | `FormName.cs` + `FormName.Designer.cs` | `Form` 또는 `UserControl` |
+| VB.NET | `FormName.vb` + `FormName.Designer.vb` | `Form` 또는 `UserControl` |
 
-**Main file:** Logic and event handlers  
-**Designer file:** Infrastructure, constructors, `Dispose`, `InitializeComponent`, control definitions
+**메인 파일:** 로직과 이벤트 핸들러
+**디자이너 파일:** 인프라, 생성자, `Dispose`, `InitializeComponent`, 컨트롤 정의
 
-### C# Conventions
+### C# 규칙
 
-- File-scoped namespaces
-- Assume global using directives
-- NRTs OK in main Form/UserControl file; forbidden in code-behind `.designer.cs`
-- Event _handlers_: `object? sender`
-- Events: nullable (`EventHandler?`)
+- 파일 범위 네임스페이스
+- 전역 using 지시문 가정
+- 메인 Form/UserControl 파일에서 NRT 허용; 코드 비하인드 `.designer.cs`에서는 금지
+- 이벤트 _핸들러_: `object? sender`
+- 이벤트: nullable (`EventHandler?`)
 
-### VB.NET Conventions
+### VB.NET 규칙
 
-- Use Application Framework. There is no `Program.vb`. 
-- Forms/UserControls: No constructor by default (compiler generates with `InitializeComponent()` call)
-- If constructor needed, include `InitializeComponent()` call
-- CRITICAL: `Friend WithEvents controlName as ControlType` for control backing fields.
-- Strongly prefer event handlers `Sub`s with `Handles` clause in main code over `AddHandler` in  file`InitializeComponent`
+- Application Framework 사용. `Program.vb`는 없음.
+- Forms/UserControls: 기본적으로 생성자 없음 (컴파일러가 `InitializeComponent()` 호출과 함께 생성)
+- 생성자가 필요하면 `InitializeComponent()` 호출 포함
+- 중요: 컨트롤 백킹 필드에 `Friend WithEvents controlName as ControlType`.
+- `InitializeComponent` 파일의 `AddHandler`보다 메인 코드에서 `Handles` 절이 있는 이벤트 핸들러 `Sub`를 강력히 선호
 
 ---
 
-## Classic Data Binding and MVVM Data Binding (.NET 8+)
+## 클래식 데이터 바인딩과 MVVM 데이터 바인딩 (.NET 8+)
 
-### Breaking Changes: .NET Framework vs .NET 8+
+### 호환성 변경: .NET Framework vs .NET 8+
 
-| Feature | .NET Framework <= 4.8.1 | .NET 8+ |
+| 기능 | .NET Framework <= 4.8.1 | .NET 8+ |
 |---------|----------------------|---------|
-| Typed DataSets | Designer supported | Code-only (not recommended) |
-| Object Binding | Supported | Enhanced UI, fully supported |
-| Data Sources Window | Available | Not available |
+| 타입 DataSets | 디자이너 지원 | 코드 전용 (권장하지 않음) |
+| 객체 바인딩 | 지원 | 향상된 UI, 완전 지원 |
+| 데이터 소스 창 | 사용 가능 | 사용 불가 |
 
-### Data Binding Rules
+### 데이터 바인딩 규칙
 
-- Object DataSources: `INotifyPropertyChanged`, `BindingList<T>` required, prefer `ObservableObject` from MVVM CommunityToolkit.
-- `ObservableCollection<T>`: Requires `BindingList<T>` a dedicated adapter, that merges both change notifications approaches. Create, if not existing.
-- One-way-to-source: Unsupported in WinForms DataBinding (workaround: additional dedicated VM property with NO-OP property setter).
+- 객체 DataSources: `INotifyPropertyChanged`, `BindingList<T>` 필요, MVVM CommunityToolkit의 `ObservableObject` 선호.
+- `ObservableCollection<T>`: 두 변경 알림 접근 방식을 병합하는 전용 어댑터인 `BindingList<T>`가 필요. 존재하지 않으면 생성.
+- 소스 방향 단방향: WinForms DataBinding에서 지원되지 않음 (해결 방법: NO-OP 속성 setter가 있는 추가 전용 VM 속성).
 
-### Add Object DataSource to Solution, treat ViewModels also as DataSources
+### 솔루션에 객체 DataSource 추가, ViewModel도 DataSource로 취급
 
-To make types as DataSource accessible for the Designer, create `.datasource` file in `Properties\DataSources\`:
+디자이너에서 타입을 DataSource로 접근 가능하게 하려면 `Properties\DataSources\`에 `.datasource` 파일을 생성하세요:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<GenericObjectDataSource DisplayName="MainViewModel" Version="1.0" 
+<GenericObjectDataSource DisplayName="MainViewModel" Version="1.0"
     xmlns="urn:schemas-microsoft-com:xml-msdatasource">
   <TypeInfo>MyApp.ViewModels.MainViewModel, MyApp.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>
 ```
 
-Subsequently, use BindingSource components in Forms/UserControls to bind to the DataSource type as "Mediator" instance between View and ViewModel. (Classic WinForms binding approach)
+이후 Forms/UserControls에서 BindingSource 컴포넌트를 사용하여 View와 ViewModel 사이의 "중재자" 인스턴스로 DataSource 타입에 바인딩하세요. (클래식 WinForms 바인딩 접근 방식)
 
-### New MVVM Command Binding APIs in .NET 8+
+### .NET 8+의 새로운 MVVM 명령 바인딩 API
 
-| API | Description | Cascading |
+| API | 설명 | 캐스케이딩 |
 |-----|-------------|-----------|
-| `Control.DataContext` | Ambient property for MVVM | Yes (down hierarchy) |
-| `ButtonBase.Command` | ICommand binding | No |
-| `ToolStripItem.Command` | ICommand binding | No |
-| `*.CommandParameter` | Auto-passed to command | No |
+| `Control.DataContext` | MVVM을 위한 앰비언트 속성 | 예 (계층 아래로) |
+| `ButtonBase.Command` | ICommand 바인딩 | 아니오 |
+| `ToolStripItem.Command` | ICommand 바인딩 | 아니오 |
+| `*.CommandParameter` | 명령에 자동 전달 | 아니오 |
 
-**Note:** `ToolStripItem` now derives from `BindableComponent`.
+**참고:** `ToolStripItem`은 이제 `BindableComponent`에서 파생됩니다.
 
-### MVVM Pattern in WinForms (.NET 8+)
+### WinForms에서의 MVVM 패턴 (.NET 8+)
 
-- If asked to create or refactor a WinForms project to MVVM, identify (if already exists) or create a dedicated class library for ViewModels based on the MVVM CommunityToolkit
-- Reference MVVM ViewModel class library from the WinForms project
-- Import ViewModels via Object DataSources as described above
-- Use new `Control.DataContext` for passing ViewModel as data sources down the control hierarchy for nested Form/UserControl scenarios
-- Use `Button[Base].Command` or `ToolStripItem.Command` for MVVM command bindings. Use the CommandParameter property for passing parameters.
+- WinForms 프로젝트를 MVVM으로 생성하거나 리팩토링하라는 요청을 받으면, MVVM CommunityToolkit 기반의 ViewModel 전용 클래스 라이브러리를 식별(이미 존재하는 경우)하거나 생성하세요
+- WinForms 프로젝트에서 MVVM ViewModel 클래스 라이브러리 참조
+- 위에서 설명한 대로 객체 DataSources를 통해 ViewModel 가져오기
+- 중첩된 Form/UserControl 시나리오에서 컨트롤 계층 아래로 ViewModel을 데이터 소스로 전달하기 위해 새로운 `Control.DataContext` 사용
+- MVVM 명령 바인딩에 `Button[Base].Command` 또는 `ToolStripItem.Command` 사용. 매개변수 전달에는 CommandParameter 속성 사용.
 
-- - Use the `Parse` and `Format` events of `Binding` objects for custom data conversions (`IValueConverter` workaround), if necessary.
+- - 필요한 경우 사용자 정의 데이터 변환을 위해 `Binding` 객체의 `Parse` 및 `Format` 이벤트 사용 (`IValueConverter` 해결 방법).
 
 ```csharp
 private void PrincipleApproachForIValueConverterWorkaround()
 {
-   // We assume the Binding was done in InitializeComponent and look up 
-   // the bound property like so:
+   // InitializeComponent에서 바인딩이 완료되었다고 가정하고
+   // 바인딩된 속성을 다음과 같이 조회합니다:
    Binding b = text1.DataBindings["Text"];
 
-   // We hook up the "IValueConverter" functionality like so:
+   // "IValueConverter" 기능을 다음과 같이 연결합니다:
    b.Format += new ConvertEventHandler(DecimalToCurrencyString);
    b.Parse += new ConvertEventHandler(CurrencyStringToDecimal);
 }
 ```
-- Bind property as usual.
-- Bind commands the same way - ViewModels are Data SOurces! Do it like so:
+- 평소처럼 속성을 바인딩하세요.
+- 명령도 같은 방식으로 바인딩하세요 - ViewModel은 데이터 소스입니다! 다음과 같이 하세요:
 ```csharp
 // Create BindingSource
 components = new Container();
@@ -370,14 +370,14 @@ await InvokeAsync<string>(async (ct) => await LoadDataAsync(ct), outerCancellati
 
 ### Form Async Methods (.NET 9+)
 
-- `ShowAsync()`: Completes when form closes. 
+- `ShowAsync()`: Completes when form closes.
   Note that the IAsyncState of the returned task holds a weak reference to the Form for easy lookup!
 - `ShowDialogAsync()`: Modal with dedicated message queue
 
 ### CRITICAL: Async EventHandler Pattern
 
 - All the following rules are true for both `[modifier] void async EventHandler(object? s, EventArgs e)` as for overridden virtual methods like `async void OnLoad` or `async void OnClick`.
-- `async void` event handlers are the standard pattern for WinForms UI events when striving for desired asynch implementation. 
+- `async void` event handlers are the standard pattern for WinForms UI events when striving for desired asynch implementation.
 - CRITICAL: ALWAYS nest `await MethodAsync()` calls in `try/catch` in async event handler — else, YOU'D RISK CRASHING THE PROCESS.
 
 ## Exception Handling in WinForms
@@ -419,7 +419,7 @@ catch (Exception ex)
 ```
 
 **Important Notes:**
-- `Application.OnThreadException` routes to the UI thread's exception handler and fires `Application.ThreadException`. 
+- `Application.OnThreadException` routes to the UI thread's exception handler and fires `Application.ThreadException`.
 - Never call it from background threads — marshal to UI thread first.
 - For process termination on unhandled exceptions, use `Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException)` at startup.
 - **VB Limitation:** VB cannot await in catch block. Avoid, or work around with state machine pattern.
@@ -438,25 +438,25 @@ Code-generation rule for properties of types derived from `Component` or `Contro
 public class CustomControl : Control
 {
     private Font? _customFont;
-    
+
     // Simple default - no serialization if default
     [DefaultValue(typeof(Color), "Yellow")]
     public Color HighlightColor { get; set; } = Color.Yellow;
-    
+
     // Hidden - never serialize
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public List<string> RuntimeData { get; set; }
-    
+
     // Conditional serialization
     public Font? CustomFont
     {
         get => _customFont ?? Font;
         set { /* setter logic */ }
     }
-    
+
     private bool ShouldSerializeCustomFont()
         => _customFont is not null && _customFont.Size != 9.0f;
-    
+
     private void ResetCustomFont()
         => _customFont = null;
 }
@@ -500,7 +500,7 @@ public class CustomControl : Control
 **Sizing rules: TLP cell fundamentals**
 - Columns:
   * AutoSize for caption columns with `Anchor = Left | Right`.
-  * Percent for content columns, percentage distribution by good reasoning, `Anchor = Top | Bottom | Left | Right`. 
+  * Percent for content columns, percentage distribution by good reasoning, `Anchor = Top | Bottom | Left | Right`.
     Never dock cells, always anchor!
   * Avoid _Absolute_ column sizing mode, unless for unavoidable fixed-size content (icons, buttons).
 - Rows:
@@ -508,7 +508,7 @@ public class CustomControl : Control
   * Percent for multi-line TextBoxes, rendering areas AND filling distance filler for remaining space to e.g., a bottom button row (OK|Cancel).
   * Avoid _Absolute_ row sizing mode even more.
 
-- Margins matter: Set `Margin` on controls (min. default 3px). 
+- Margins matter: Set `Margin` on controls (min. default 3px).
 - Note: `Padding` does not have an effect in TLP cells.
 
 ### Common Layout Patterns
@@ -611,8 +611,8 @@ Use `DataContext` property (.NET 8+) of Form to pass and return modal data objec
 ### Resources and Localization
 
 - String literal constants for UI display NEED to be in resource files.
-- When laying out Forms/UserControls, take into account that localized captions might have different string lengths. 
-- Instead of using icon libraries, try rendering icons from the font "Segoe UI Symbol". 
+- When laying out Forms/UserControls, take into account that localized captions might have different string lengths.
+- Instead of using icon libraries, try rendering icons from the font "Segoe UI Symbol".
 - If an image is needed, write a helper class that renders symbols from the font in the desired size.
 
 ## Critical Reminders

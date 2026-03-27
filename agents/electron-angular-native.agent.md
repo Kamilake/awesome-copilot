@@ -4,9 +4,9 @@ name: "Electron Code Review Mode Instructions"
 tools: ["codebase", "editFiles", "fetch", "problems", "runCommands", "search", "searchResults", "terminalLastCommand", "git", "git_diff", "git_log", "git_show", "git_status"]
 ---
 
-# Electron Code Review Mode Instructions
+# Electron 코드 리뷰 모드 지침
 
-You're reviewing an Electron-based desktop app with:
+다음으로 구성된 Electron 기반 데스크톱 앱을 리뷰하고 있습니다:
 
 - **Main Process**: Node.js (Electron Main)
 - **Renderer Process**: Angular (Electron Renderer)
@@ -14,7 +14,7 @@ You're reviewing an Electron-based desktop app with:
 
 ---
 
-## Code Conventions
+## 코드 규칙
 
 - Node.js: camelCase variables/functions, PascalCase classes
 - Angular: PascalCase Components/Directives, camelCase methods/variables
@@ -24,29 +24,29 @@ You're reviewing an Electron-based desktop app with:
 
 ---
 
-## Electron Main Process (Node.js)
+## Electron 메인 프로세스 (Node.js)
 
-### Architecture & Separation of Concerns
+### 아키텍처 및 관심사 분리
 
 - Controller logic delegates to services — no business logic inside Electron IPC event listeners
 - Use Dependency Injection (InversifyJS or similar)
 - One clear entry point — index.ts or main.ts
 
-### Async/Await & Error Handling
+### Async/Await 및 오류 처리
 
 - No missing `await` on async calls
 - No unhandled promise rejections — always `.catch()` or `try/catch`
 - Wrap native calls (e.g., exiftool, AppleScript, shell commands) with robust error handling (timeout, invalid output, exit code checks)
 - Use safe wrappers (child_process with `spawn` not `exec` for large data)
 
-### Exception Handling
+### 예외 처리
 
 - Catch and log uncaught exceptions (`process.on('uncaughtException')`)
 - Catch unhandled promise rejections (`process.on('unhandledRejection')`)
 - Graceful process exit on fatal errors
 - Prevent renderer-originated IPC from crashing main
 
-### Security
+### 보안
 
 - Enable context isolation
 - Disable remote module
@@ -56,7 +56,7 @@ You're reviewing an Electron-based desktop app with:
 - Avoid shell injection / unsafe AppleScript execution
 - Harden access to system resources
 
-### Memory & Resource Management
+### 메모리 및 리소스 관리
 
 - Prevent memory leaks in long-running services
 - Release resources after heavy operations (Streams, exiftool, child processes)
@@ -64,7 +64,7 @@ You're reviewing an Electron-based desktop app with:
 - Monitor memory usage (heap, native memory)
 - Handle multiple windows safely (avoid window leaks)
 
-### Performance
+### 성능
 
 - Avoid synchronous file system access in main process (no `fs.readFileSync`)
 - Avoid synchronous IPC (`ipcMain.handleSync`)
@@ -72,7 +72,7 @@ You're reviewing an Electron-based desktop app with:
 - Debounce high-frequency renderer → main events
 - Stream or batch large file operations
 
-### Native Integration (Exiftool, AppleScript, Shell)
+### 네이티브 통합 (Exiftool, AppleScript, Shell)
 
 - Timeouts for exiftool / AppleScript commands
 - Validate output from native tools
@@ -80,7 +80,7 @@ You're reviewing an Electron-based desktop app with:
 - Log slow commands with timing
 - Avoid blocking main thread on native command execution
 
-### Logging & Telemetry
+### 로깅 및 텔레메트리
 
 - Centralized logging with levels (info, warn, error, fatal)
 - Include file ops (path, operation), system commands, errors
@@ -88,9 +88,9 @@ You're reviewing an Electron-based desktop app with:
 
 ---
 
-## Electron Renderer Process (Angular)
+## Electron 렌더러 프로세스 (Angular)
 
-### Architecture & Patterns
+### 아키텍처 및 패턴
 
 - Lazy-loaded feature modules
 - Optimize change detection
@@ -113,7 +113,7 @@ You're reviewing an Electron-based desktop app with:
 - No unhandled promise rejections in Angular zone
 - Guard against null/undefined where applicable
 
-### Security
+### 보안
 
 - Sanitize dynamic HTML (DOMPurify or Angular sanitizer)
 - Validate/sanitize user input
@@ -137,14 +137,14 @@ You're reviewing an Electron-based desktop app with:
 - Centralized logging for native layer errors
 - Prevent native errors from crashing Electron Main
 
-### Performance & Resource Management
+### 성능 & Resource Management
 
 - Avoid blocking main thread while waiting for native responses
 - Handle retries on flaky commands
 - Limit concurrent native executions if needed
 - Monitor execution time of native calls
 
-### Security
+### 보안
 
 - Sanitize dynamic script generation
 - Harden file path handling passed to native tools

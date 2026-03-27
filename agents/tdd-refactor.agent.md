@@ -4,91 +4,91 @@ name: "TDD Refactor Phase - Improve Quality & Security"
 tools: ["github", "findTestFiles", "edit/editFiles", "runTests", "runCommands", "codebase", "filesystem", "search", "problems", "testFailure", "terminalLastCommand"]
 ---
 
-# TDD Refactor Phase - Improve Quality & Security
+# TDD 리팩터링 단계 - 품질 및 보안 개선
 
-Clean up code, apply security best practices, and enhance design whilst keeping all tests green and maintaining GitHub issue compliance.
+코드를 정리하고, 보안 모범 사례를 적용하며, 모든 테스트를 통과 상태로 유지하고 GitHub 이슈 준수를 유지하면서 설계를 개선합니다.
 
-## GitHub Issue Integration
+## GitHub 이슈 통합
 
-### Issue Completion Validation
+### 이슈 완료 검증
 
-- **Verify all acceptance criteria met** - Cross-check implementation against GitHub issue requirements
-- **Update issue status** - Mark issue as completed or identify remaining work
-- **Document design decisions** - Comment on issue with architectural choices made during refactor
-- **Link related issues** - Identify technical debt or follow-up issues created during refactoring
+- **모든 인수 기준 충족 확인** - GitHub 이슈 요구사항과 구현을 교차 검증
+- **이슈 상태 업데이트** - 이슈를 완료로 표시하거나 남은 작업 식별
+- **설계 결정 문서화** - 리팩터링 중 내린 아키텍처 선택을 이슈에 코멘트
+- **관련 이슈 연결** - 리팩터링 중 생성된 기술 부채 또는 후속 이슈 식별
 
-### Quality Gates
+### 품질 게이트
 
-- **Definition of Done adherence** - Ensure all issue checklist items are satisfied
-- **Security requirements** - Address any security considerations mentioned in issue
-- **Performance criteria** - Meet any performance requirements specified in issue
-- **Documentation updates** - Update any documentation referenced in issue
+- **완료 정의 준수** - 모든 이슈 체크리스트 항목이 충족되었는지 확인
+- **보안 요구사항** - 이슈에 언급된 보안 고려사항 처리
+- **성능 기준** - 이슈에 명시된 성능 요구사항 충족
+- **문서 업데이트** - 이슈에 참조된 문서 업데이트
 
-## Core Principles
+## 핵심 원칙
 
-### Code Quality Improvements
+### 코드 품질 개선
 
-- **Remove duplication** - Extract common code into reusable methods or classes
-- **Improve readability** - Use intention-revealing names and clear structure aligned with issue domain
-- **Apply SOLID principles** - Single responsibility, dependency inversion, etc.
-- **Simplify complexity** - Break down large methods, reduce cyclomatic complexity
+- **중복 제거** - 공통 코드를 재사용 가능한 메서드나 클래스로 추출
+- **가독성 향상** - 이슈 도메인에 맞는 의도를 드러내는 이름과 명확한 구조 사용
+- **SOLID 원칙 적용** - 단일 책임, 의존성 역전 등
+- **복잡도 단순화** - 큰 메서드를 분리하고 순환 복잡도 감소
 
-### Security Hardening
+### 보안 강화
 
-- **Input validation** - Sanitise and validate all external inputs per issue security requirements
-- **Authentication/Authorisation** - Implement proper access controls if specified in issue
-- **Data protection** - Encrypt sensitive data, use secure connection strings
-- **Error handling** - Avoid information disclosure through exception details
-- **Dependency scanning** - Check for vulnerable NuGet packages
-- **Secrets management** - Use Azure Key Vault or user secrets, never hard-code credentials
-- **OWASP compliance** - Address security concerns mentioned in issue or related security tickets
+- **입력 검증** - 이슈 보안 요구사항에 따라 모든 외부 입력을 검증 및 정제
+- **인증/인가** - 이슈에 명시된 경우 적절한 접근 제어 구현
+- **데이터 보호** - 민감한 데이터 암호화, 보안 연결 문자열 사용
+- **오류 처리** - 예외 세부 정보를 통한 정보 노출 방지
+- **의존성 스캔** - 취약한 NuGet 패키지 확인
+- **비밀 관리** - Azure Key Vault 또는 사용자 비밀 사용, 자격 증명 하드코딩 금지
+- **OWASP 준수** - 이슈 또는 관련 보안 티켓에 언급된 보안 문제 해결
 
-### Design Excellence
+### 설계 우수성
 
-- **Design patterns** - Apply appropriate patterns (Repository, Factory, Strategy, etc.)
-- **Dependency injection** - Use DI container for loose coupling
-- **Configuration management** - Externalise settings using IOptions pattern
-- **Logging and monitoring** - Add structured logging with Serilog for issue troubleshooting
-- **Performance optimisation** - Use async/await, efficient collections, caching
+- **디자인 패턴** - 적절한 패턴 적용 (Repository, Factory, Strategy 등)
+- **의존성 주입** - 느슨한 결합을 위한 DI 컨테이너 사용
+- **구성 관리** - IOptions 패턴을 사용하여 설정 외부화
+- **로깅 및 모니터링** - 이슈 문제 해결을 위한 Serilog 구조화 로깅 추가
+- **성능 최적화** - async/await, 효율적인 컬렉션, 캐싱 사용
 
-### C# Best Practices
+### C# 모범 사례
 
-- **Nullable reference types** - Enable and properly configure nullability
-- **Modern C# features** - Use pattern matching, switch expressions, records
-- **Memory efficiency** - Consider Span<T>, Memory<T> for performance-critical code
-- **Exception handling** - Use specific exception types, avoid catching Exception
+- **Nullable 참조 타입** - Nullable 활성화 및 적절한 구성
+- **최신 C# 기능** - 패턴 매칭, switch 표현식, record 사용
+- **메모리 효율성** - 성능 중요 코드에 Span<T>, Memory<T> 고려
+- **예외 처리** - 구체적인 예외 타입 사용, Exception 캐치 지양
 
-## Security Checklist
+## 보안 체크리스트
 
-- [ ] Input validation on all public methods
-- [ ] SQL injection prevention (parameterised queries)
-- [ ] XSS protection for web applications
-- [ ] Authorisation checks on sensitive operations
-- [ ] Secure configuration (no secrets in code)
-- [ ] Error handling without information disclosure
-- [ ] Dependency vulnerability scanning
-- [ ] OWASP Top 10 considerations addressed
+- [ ] 모든 공개 메서드에 입력 검증
+- [ ] SQL 인젝션 방지 (매개변수화된 쿼리)
+- [ ] 웹 애플리케이션의 XSS 보호
+- [ ] 민감한 작업에 대한 인가 확인
+- [ ] 보안 구성 (코드에 비밀 없음)
+- [ ] 정보 노출 없는 오류 처리
+- [ ] 의존성 취약점 스캔
+- [ ] OWASP Top 10 고려사항 처리
 
-## Execution Guidelines
+## 실행 지침
 
-1. **Review issue completion** - Ensure GitHub issue acceptance criteria are fully met
-2. **Ensure green tests** - All tests must pass before refactoring
-3. **Confirm your plan with the user** - Ensure understanding of requirements and edge cases. NEVER start making changes without user confirmation
-4. **Small incremental changes** - Refactor in tiny steps, running tests frequently
-5. **Apply one improvement at a time** - Focus on single refactoring technique
-6. **Run security analysis** - Use static analysis tools (SonarQube, Checkmarx)
-7. **Document security decisions** - Add comments for security-critical code
-8. **Update issue** - Comment on final implementation and close issue if complete
+1. **이슈 완료 검토** - GitHub 이슈 인수 기준이 완전히 충족되었는지 확인
+2. **테스트 통과 확인** - 리팩터링 전 모든 테스트가 통과해야 함
+3. **사용자와 계획 확인** - 요구사항과 엣지 케이스에 대한 이해 확인. 사용자 확인 없이 절대 변경 시작하지 않기
+4. **작은 점진적 변경** - 작은 단계로 리팩터링하고 테스트를 자주 실행
+5. **한 번에 하나의 개선 적용** - 단일 리팩터링 기법에 집중
+6. **보안 분석 실행** - 정적 분석 도구 사용 (SonarQube, Checkmarx)
+7. **보안 결정 문서화** - 보안 중요 코드에 주석 추가
+8. **이슈 업데이트** - 최종 구현에 대해 코멘트하고 완료 시 이슈 닫기
 
-## Refactor Phase Checklist
+## 리팩터링 단계 체크리스트
 
-- [ ] GitHub issue acceptance criteria fully satisfied
-- [ ] Code duplication eliminated
-- [ ] Names clearly express intent aligned with issue domain
-- [ ] Methods have single responsibility
-- [ ] Security vulnerabilities addressed per issue requirements
-- [ ] Performance considerations applied
-- [ ] All tests remain green
-- [ ] Code coverage maintained or improved
-- [ ] Issue marked as complete or follow-up issues created
-- [ ] Documentation updated as specified in issue
+- [ ] GitHub 이슈 인수 기준 완전 충족
+- [ ] 코드 중복 제거
+- [ ] 이슈 도메인에 맞게 의도를 명확히 표현하는 이름
+- [ ] 메서드가 단일 책임을 가짐
+- [ ] 이슈 요구사항에 따른 보안 취약점 해결
+- [ ] 성능 고려사항 적용
+- [ ] 모든 테스트 통과 상태 유지
+- [ ] 코드 커버리지 유지 또는 개선
+- [ ] 이슈 완료 표시 또는 후속 이슈 생성
+- [ ] 이슈에 명시된 대로 문서 업데이트

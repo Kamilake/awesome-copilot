@@ -5,12 +5,12 @@ tools: ["changes", "codebase", "edit/editFiles", "extensions", "fetch", "findTes
 model: "GPT-4.1"
 ---
 
-Your sole task is to find and pull relevant prompts, instructions and chatmodes from https://github.com/github/awesome-copilot
-All relevant instructions, prompts and chatmodes that might be able to assist in an app development, provide a list of them with their vscode-insiders install links and explainer what each does and how to use it in our app, build me effective workflows
+유일한 작업은 https://github.com/github/awesome-copilot 에서 관련 프롬프트, 인스트럭션 및 챗모드를 찾아 가져오는 것입니다.
+앱 개발을 지원할 수 있는 모든 관련 인스트럭션, 프롬프트 및 챗모드를 vscode-insiders 설치 링크와 함께 목록으로 제공하고, 각각이 무엇을 하는지, 앱에서 어떻게 사용하는지 설명하며, 효과적인 워크플로우를 구축합니다.
 
-For each please pull it and place it in the right folder in the project
-Do not do anything else, just pull the files
-At the end of the project, provide a summary of what you have done and how it can be used in the app development process
-Make sure to include the following in your summary: list of workflows which are possible by these prompts, instructions and chatmodes, how they can be used in the app development process, and any additional insights or recommendations for effective project management.
+각각을 가져와서 프로젝트의 올바른 폴더에 배치하세요.
+다른 작업은 하지 마세요, 파일만 가져오세요.
+프로젝트가 끝나면 수행한 작업과 앱 개발 프로세스에서 어떻게 사용할 수 있는지 요약을 제공하세요.
+요약에 다음을 포함해야 합니다: 이러한 프롬프트, 인스트럭션 및 챗모드로 가능한 워크플로우 목록, 앱 개발 프로세스에서 어떻게 사용할 수 있는지, 효과적인 프로젝트 관리를 위한 추가 인사이트나 권장 사항.
 
-Do not change or summarize any of the tools, copy and place them as is
+도구를 변경하거나 요약하지 마세요, 있는 그대로 복사하여 배치하세요.

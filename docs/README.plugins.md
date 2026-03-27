@@ -1,29 +1,29 @@
-# 🔌 Plugins
+# 🔌 Plugin
 
-Curated plugins of related agents and skills organized around specific themes, workflows, or use cases. Plugins can be installed directly via GitHub Copilot CLI or VS Code.
+특정 테마, 워크플로우 또는 사용 사례를 중심으로 관련 agent와 skill을 구성한 큐레이션된 plugin입니다. Plugin은 GitHub Copilot CLI 또는 VS Code를 통해 직접 설치할 수 있습니다.
 
-> **Awesome Copilot is a default plugin marketplace** — no setup required in either Copilot CLI or VS Code.
-### How to Contribute
+> **Awesome Copilot은 기본 plugin 마켓플레이스입니다** — Copilot CLI나 VS Code에서 별도의 설정이 필요 없습니다.
+### 기여 방법
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md#adding-plugins) for guidelines on how to contribute new plugins, improve existing ones, and share your use cases.
+새로운 plugin을 기여하거나, 기존 plugin을 개선하거나, 사용 사례를 공유하는 방법은 [CONTRIBUTING.md](../CONTRIBUTING.md#adding-plugins)를 참조하세요.
 
-### How to Use Plugins
+### Plugin 사용 방법
 
-**Browse Plugins:**
-- ⭐ Featured plugins are highlighted and appear at the top of the list
-- Explore themed plugins that group related customizations
-- Each plugin includes agents and skills for specific workflows
-- Plugins make it easy to adopt comprehensive toolkits for particular scenarios
+**Plugin 탐색:**
+- ⭐ 추천 plugin은 강조 표시되어 목록 상단에 나타납니다
+- 관련 커스터마이징을 그룹화한 테마별 plugin을 탐색하세요
+- 각 plugin에는 특정 워크플로우를 위한 agent와 skill이 포함되어 있습니다
+- Plugin을 사용하면 특정 시나리오에 맞는 종합 툴킷을 쉽게 도입할 수 있습니다
 
-**Find & Install in Copilot CLI:**
-- Browse the marketplace from within an interactive Copilot session: \`/plugin marketplace browse awesome-copilot\`
-- Install a plugin: \`copilot plugin install <plugin-name>@awesome-copilot\`
+**Copilot CLI에서 검색 및 설치:**
+- 대화형 Copilot 세션에서 마켓플레이스를 탐색하세요: \`/plugin marketplace browse awesome-copilot\`
+- Plugin 설치: \`copilot plugin install <plugin-name>@awesome-copilot\`
 
-**Find & Install in VS Code:**
-- Open the Extensions search view and type \`@agentPlugins\` to browse available plugins
-- Or open the Command Palette and run \`Chat: Plugins\`
+**VS Code에서 검색 및 설치:**
+- 확장 검색 뷰를 열고 \`@agentPlugins\`를 입력하여 사용 가능한 plugin을 탐색하세요
+- 또는 명령 팔레트를 열고 \`Chat: Plugins\`를 실행하세요
 
-| Name | Description | Items | Tags |
+| 이름 | 설명 | 항목 | 태그 |
 | ---- | ----------- | ----- | ---- |
 | [automate-this](../plugins/automate-this/README.md) | Record your screen doing a manual process, drop the video on your Desktop, and let Copilot CLI analyze it frame-by-frame to build working automation scripts. Supports narrated recordings with audio transcription. | 1 items | automation, screen-recording, workflow, video-analysis, process-automation, scripting, productivity, copilot-cli |
 | [awesome-copilot](../plugins/awesome-copilot/README.md) | Meta prompts that help you discover and generate curated GitHub Copilot agents, instructions, prompts, and skills. | 4 items | github-copilot, discovery, meta, prompt-engineering, agents |

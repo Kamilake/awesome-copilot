@@ -4,13 +4,13 @@ name: '.NET Upgrade'
 tools: ['codebase', 'edit/editFiles', 'search', 'runCommands', 'runTasks', 'runTests', 'problems', 'changes', 'usages', 'findTestFiles', 'testFailure', 'terminalLastCommand', 'terminalSelection', 'web/fetch', 'microsoft.docs.mcp']
 ---
 
-# .NET Upgrade Collection
+.NET 업그레이드 컬렉션
 
-.NET Framework upgrade specialist for comprehensive project migration
+.NET Framework 업그레이드 전문가 - 포괄적인 프로젝트 마이그레이션
 
 **Tags:** dotnet, upgrade, migration, framework, modernization
 
-## Collection Usage
+## 컬렉션 사용법
 
 ### .NET Upgrade Chat Mode
 
@@ -68,7 +68,7 @@ Use these prompts for targeted analysis of specific upgrade aspects.
 
 ---
 
-## Quick Start
+## 빠른 시작
 1. Run a discovery pass to enumerate all `*.sln` and `*.csproj` files in the repository.
 2. Detect the current .NET version(s) used across projects.
 3. Identify the latest available stable .NET version (LTS preferred) — usually `+2` years ahead of the existing version.
@@ -77,7 +77,7 @@ Use these prompts for targeted analysis of specific upgrade aspects.
 
 ---
 
-## Auto-Detect Current .NET Version
+## 현재 .NET 버전 자동 감지
 To automatically detect the current framework versions across the solution:
 
 ```bash
@@ -99,7 +99,7 @@ dotnet --info | grep "Version"
 
 ---
 
-## Discovery & Analysis Commands
+## 검색 및 분석 명령
 ```bash
 # List all projects
 dotnet sln list
@@ -119,14 +119,14 @@ dotnet msbuild <ProjectName>.csproj /t:GenerateRestoreGraphFile /p:RestoreGraphO
 
 ---
 
-## Classification Rules
+## 분류 규칙
 - `TargetFramework` starts with `netcoreapp`, `net5.0+`, `net6.0+`, etc. → **Modern .NET**
 - `netstandard*` → **.NET Standard** (migrate to current .NET version)
 - `net4*` → **.NET Framework** (migrate via intermediate step to .NET 8+)
 
 ---
 
-## Upgrade Sequence
+## 업그레이드 순서
 1. **Start with Independent Libraries:** Least dependent class libraries first.
 2. **Next:** Shared components and common utilities.
 3. **Then:** API, Web, or Function projects.
@@ -137,7 +137,7 @@ dotnet msbuild <ProjectName>.csproj /t:GenerateRestoreGraphFile /p:RestoreGraphO
 
 ---
 
-## Per-Project Upgrade Flow
+## 프로젝트별 업그레이드 흐름
 1. **Create branch:** `upgrade/<project>-to-<targetVersion>`
 2. **Edit `<TargetFramework>`** in `.csproj` to the suggested version (e.g., `net9.0`)
 3. **Restore & update packages:**
@@ -156,7 +156,7 @@ dotnet msbuild <ProjectName>.csproj /t:GenerateRestoreGraphFile /p:RestoreGraphO
 
 ---
 
-## Breaking Changes & Modernization
+## 호환성 깨짐 및 현대화
 - Use `.NET Upgrade Assistant` for initial recommendations.
 - Apply analyzers to detect obsolete APIs.
 - Replace outdated SDKs (e.g., `Microsoft.Azure.*` → `Azure.*`).
@@ -167,7 +167,7 @@ dotnet msbuild <ProjectName>.csproj /t:GenerateRestoreGraphFile /p:RestoreGraphO
 
 ---
 
-## CI/CD Configuration Updates
+## CI/CD 설정 업데이트
 Ensure pipelines use the detected **target version** dynamically:
 
 **Azure DevOps**
@@ -187,7 +187,7 @@ Ensure pipelines use the detected **target version** dynamically:
 
 ---
 
-## Validation Checklist
+## 검증 체크리스트
 - [ ] TargetFramework upgraded to next stable version
 - [ ] All NuGet packages compatible and updated
 - [ ] Build and test pipelines succeed locally and in CI
@@ -196,7 +196,7 @@ Ensure pipelines use the detected **target version** dynamically:
 
 ---
 
-## Branching & Rollback Strategy
+## 브랜칭 및 롤백 전략
 - Use feature branches: `upgrade/<project>-to-<targetVersion>`
 - Commit frequently and keep changes atomic
 - If CI fails after merge, revert PR and isolate failing modules
@@ -206,14 +206,14 @@ Ensure pipelines use the detected **target version** dynamically:
 
 ---
 
-## Automation & Scaling
+## 자동화 및 확장
 - Automate upgrade detection with GitHub Actions or Azure Pipelines.
 - Schedule nightly runs to check for new .NET releases via `dotnet --list-sdks`.
 - Use agents to automatically raise PRs for outdated frameworks.
 
 ---
 
-## Chatmode Prompt Library
+## 채팅모드 프롬프트 라이브러리
 1. "List all projects with current and recommended .NET versions."
 2. "Generate a per-project upgrade plan from <currentVersion> to <targetVersion>."
 3. "Suggest .csproj and pipeline edits to upgrade <ProjectName>."

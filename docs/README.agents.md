@@ -1,27 +1,27 @@
-# 🤖 Custom Agents
+# 🤖 커스텀 Agent
 
-Custom agents for GitHub Copilot, making it easy for users and organizations to "specialize" their Copilot coding agent (CCA) through simple file-based configuration.
-### How to Contribute
+GitHub Copilot을 위한 커스텀 agent로, 사용자와 조직이 간단한 파일 기반 설정을 통해 Copilot coding agent(CCA)를 "특화"할 수 있습니다.
+### 기여 방법
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md#adding-agents) for guidelines on how to contribute new agents, improve existing ones, and share your use cases.
+새로운 agent를 기여하거나, 기존 agent를 개선하거나, 사용 사례를 공유하는 방법은 [CONTRIBUTING.md](../CONTRIBUTING.md#adding-agents)를 참조하세요.
 
-### How to Use Custom Agents
+### 커스텀 Agent 사용 방법
 
-**To Install:**
-- Click the **VS Code** or **VS Code Insiders** install button for the agent you want to use
-- Download the `*.agent.md` file and add it to your repository
+**설치 방법:**
+- 사용하려는 agent의 **VS Code** 또는 **VS Code Insiders** 설치 버튼을 클릭하세요
+- `*.agent.md` 파일을 다운로드하여 저장소에 추가하세요
 
-**MCP Server Setup:**
-- Each agent may require one or more MCP servers to function
-- Click the MCP server to view it on the GitHub MCP registry
-- Follow the guide on how to add the MCP server to your repository
+**MCP 서버 설정:**
+- 각 agent는 하나 이상의 MCP 서버가 필요할 수 있습니다
+- MCP 서버를 클릭하면 GitHub MCP 레지스트리에서 확인할 수 있습니다
+- 저장소에 MCP 서버를 추가하는 방법은 가이드를 참조하세요
 
-**To Activate/Use:**
-- Access installed agents through the VS Code Chat interface, assign them in CCA, or through Copilot CLI (coming soon)
-- Agents will have access to tools from configured MCP servers
-- Follow agent-specific instructions for optimal usage
+**활성화/사용 방법:**
+- VS Code Chat 인터페이스를 통해 설치된 agent에 접근하거나, CCA에서 할당하거나, Copilot CLI를 통해 사용할 수 있습니다 (곧 지원 예정)
+- Agent는 설정된 MCP 서버의 도구에 접근할 수 있습니다
+- 최적의 사용을 위해 각 agent별 안내를 따르세요
 
-| Title | Description | MCP Servers |
+| 제목 | 설명 | MCP 서버 |
 | ----- | ----------- | ----------- |
 | [.NET Self Learning Architect](../agents/dotnet-self-learning-architect.agent.md)<br />[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://aka.ms/awesome-copilot/install/agent?url=vscode%3Achat-agent%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fgithub%2Fawesome-copilot%2Fmain%2Fagents%2Fdotnet-self-learning-architect.agent.md)<br />[![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://aka.ms/awesome-copilot/install/agent?url=vscode-insiders%3Achat-agent%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fgithub%2Fawesome-copilot%2Fmain%2Fagents%2Fdotnet-self-learning-architect.agent.md) | Senior .NET architect for complex delivery: designs .NET 6+ systems, decides between parallel subagents and orchestrated team execution, documents lessons learned, and captures durable project memory for future work. |  |
 | [.NET Upgrade](../agents/dotnet-upgrade.agent.md)<br />[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://aka.ms/awesome-copilot/install/agent?url=vscode%3Achat-agent%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fgithub%2Fawesome-copilot%2Fmain%2Fagents%2Fdotnet-upgrade.agent.md)<br />[![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://aka.ms/awesome-copilot/install/agent?url=vscode-insiders%3Achat-agent%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fgithub%2Fawesome-copilot%2Fmain%2Fagents%2Fdotnet-upgrade.agent.md) | Perform janitorial tasks on C#/.NET code including cleanup, modernization, and tech debt remediation. |  |

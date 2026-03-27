@@ -1,288 +1,288 @@
 # AGENTS.md
 
-## Project Overview
+## 프로젝트 개요
 
-The Awesome GitHub Copilot repository is a community-driven collection of custom agents and instructions designed to enhance GitHub Copilot experiences across various domains, languages, and use cases. The project includes:
+Awesome GitHub Copilot 저장소는 다양한 도메인, 언어 및 사용 사례에 걸쳐 GitHub Copilot 경험을 향상시키기 위해 설계된 커스텀 에이전트와 인스트럭션의 커뮤니티 주도 컬렉션입니다. 이 프로젝트에는 다음이 포함됩니다:
 
-- **Agents** - Specialized GitHub Copilot agents that integrate with MCP servers
-- **Instructions** - Coding standards and best practices applied to specific file patterns
-- **Skills** - Self-contained folders with instructions and bundled resources for specialized tasks
-- **Hooks** - Automated workflows triggered by specific events during development
-- **Workflows** - [Agentic Workflows](https://github.github.com/gh-aw) for AI-powered repository automation in GitHub Actions
-- **Plugins** - Installable packages that group related agents, commands, and skills around specific themes
+- **Agents** - MCP 서버와 통합되는 특화된 GitHub Copilot 에이전트
+- **Instructions** - 특정 파일 패턴에 적용되는 코딩 표준 및 모범 사례
+- **Skills** - 특화된 작업을 위한 인스트럭션과 번들 리소스가 포함된 독립형 폴더
+- **Hooks** - 개발 중 특정 이벤트에 의해 트리거되는 자동화된 워크플로우
+- **Workflows** - GitHub Actions에서 AI 기반 저장소 자동화를 위한 [Agentic Workflows](https://github.github.com/gh-aw)
+- **Plugins** - 관련 에이전트, 명령 및 스킬을 특정 테마별로 그룹화한 설치 가능한 패키지
 
-## Repository Structure
+## 저장소 구조
 
 ```
 .
-├── agents/           # Custom GitHub Copilot agent definitions (.agent.md files)
-├── instructions/     # Coding standards and guidelines (.instructions.md files)
-├── skills/           # Agent Skills folders (each with SKILL.md and optional bundled assets)
-├── hooks/            # Automated workflow hooks (folders with README.md + hooks.json)
-├── workflows/        # Agentic Workflows (.md files for GitHub Actions automation)
-├── plugins/          # Installable plugin packages (folders with plugin.json)
-├── docs/             # Documentation for different resource types
-├── eng/              # Build and automation scripts
-└── scripts/          # Utility scripts
+├── agents/           # 커스텀 GitHub Copilot 에이전트 정의 (.agent.md 파일)
+├── instructions/     # 코딩 표준 및 가이드라인 (.instructions.md 파일)
+├── skills/           # Agent Skills 폴더 (각각 SKILL.md 및 선택적 번들 에셋 포함)
+├── hooks/            # 자동화된 워크플로우 훅 (README.md + hooks.json이 포함된 폴더)
+├── workflows/        # Agentic Workflows (GitHub Actions 자동화를 위한 .md 파일)
+├── plugins/          # 설치 가능한 플러그인 패키지 (plugin.json이 포함된 폴더)
+├── docs/             # 다양한 리소스 유형에 대한 문서
+├── eng/              # 빌드 및 자동화 스크립트
+└── scripts/          # 유틸리티 스크립트
 ```
 
-## Setup Commands
+## 설정 명령어
 
 ```bash
-# Install dependencies
+# 의존성 설치
 npm ci
 
-# Build the project (generates README.md and marketplace.json)
+# 프로젝트 빌드 (README.md 및 marketplace.json 생성)
 npm run build
 
-# Validate plugin manifests
+# 플러그인 매니페스트 검증
 npm run plugin:validate
 
-# Generate marketplace.json only
+# marketplace.json만 생성
 npm run plugin:generate-marketplace
 
-# Create a new plugin
+# 새 플러그인 생성
 npm run plugin:create -- --name <plugin-name>
 
-# Validate agent skills
+# Agent Skills 검증
 npm run skill:validate
 
-# Create a new skill
+# 새 스킬 생성
 npm run skill:create -- --name <skill-name>
 ```
 
-## Development Workflow
+## 개발 워크플로우
 
-### Working with Agents, Instructions, Skills, and Hooks
+### Agents, Instructions, Skills 및 Hooks 작업
 
-All agent files (`*.agent.md`) and instruction files (`*.instructions.md`) must include proper markdown front matter. Agent Skills are folders containing a `SKILL.md` file with frontmatter and optional bundled assets. Hooks are folders containing a `README.md` with frontmatter and a `hooks.json` configuration file:
+모든 에이전트 파일 (`*.agent.md`)과 인스트럭션 파일 (`*.instructions.md`)에는 적절한 마크다운 front matter가 포함되어야 합니다. Agent Skills는 frontmatter가 포함된 `SKILL.md` 파일과 선택적 번들 에셋이 있는 폴더입니다. Hooks는 frontmatter가 포함된 `README.md`와 `hooks.json` 설정 파일이 있는 폴더입니다:
 
-#### Agent Files (*.agent.md)
-- Must have `description` field (wrapped in single quotes)
-- File names should be lower case with words separated by hyphens
-- Recommended to include `tools` field
-- Strongly recommended to specify `model` field
+#### Agent 파일 (*.agent.md)
+- `description` 필드가 있어야 합니다 (작은따옴표로 감싸기)
+- 파일 이름은 소문자로, 단어는 하이픈으로 구분
+- `tools` 필드 포함 권장
+- `model` 필드 지정 강력 권장
 
-#### Instruction Files (*.instructions.md)
-- Must have `description` field (wrapped in single quotes, not empty)
-- Must have `applyTo` field specifying file patterns (e.g., `'**.js, **.ts'`)
-- File names should be lower case with words separated by hyphens
+#### Instruction 파일 (*.instructions.md)
+- `description` 필드가 있어야 합니다 (작은따옴표로 감싸기, 비어있지 않아야 함)
+- 파일 패턴을 지정하는 `applyTo` 필드가 있어야 합니다 (예: `'**.js, **.ts'`)
+- 파일 이름은 소문자로, 단어는 하이픈으로 구분
 
 #### Agent Skills (skills/*/SKILL.md)
-- Each skill is a folder containing a `SKILL.md` file
-- SKILL.md must have `name` field (lowercase with hyphens, matching folder name, max 64 characters)
-- SKILL.md must have `description` field (wrapped in single quotes, 10-1024 characters)
-- Folder names should be lower case with words separated by hyphens
-- Skills can include bundled assets (scripts, templates, data files)
-- Bundled assets should be referenced in the SKILL.md instructions
-- Asset files should be reasonably sized (under 5MB per file)
-- Skills follow the [Agent Skills specification](https://agentskills.io/specification)
+- 각 스킬은 `SKILL.md` 파일이 포함된 폴더입니다
+- SKILL.md에는 `name` 필드가 있어야 합니다 (소문자 하이픈 구분, 폴더 이름과 일치, 최대 64자)
+- SKILL.md에는 `description` 필드가 있어야 합니다 (작은따옴표로 감싸기, 10-1024자)
+- 폴더 이름은 소문자로, 단어는 하이픈으로 구분
+- 스킬에는 번들 에셋(스크립트, 템플릿, 데이터 파일)을 포함할 수 있습니다
+- 번들 에셋은 SKILL.md 인스트럭션에서 참조되어야 합니다
+- 에셋 파일은 적절한 크기여야 합니다 (파일당 5MB 미만)
+- 스킬은 [Agent Skills 사양](https://agentskills.io/specification)을 따릅니다
 
-#### Hook Folders (hooks/*/README.md)
-- Each hook is a folder containing a `README.md` file with frontmatter
-- README.md must have `name` field (human-readable name)
-- README.md must have `description` field (wrapped in single quotes, not empty)
-- Must include a `hooks.json` file with hook configuration (hook events extracted from this file)
-- Folder names should be lower case with words separated by hyphens
-- Can include bundled assets (scripts, utilities, configuration files)
-- Bundled scripts should be referenced in the README.md and hooks.json
-- Follow the [GitHub Copilot hooks specification](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/use-hooks)
-- Optionally includes `tags` field for categorization
+#### Hook 폴더 (hooks/*/README.md)
+- 각 훅은 frontmatter가 포함된 `README.md` 파일이 있는 폴더입니다
+- README.md에는 `name` 필드가 있어야 합니다 (사람이 읽을 수 있는 이름)
+- README.md에는 `description` 필드가 있어야 합니다 (작은따옴표로 감싸기, 비어있지 않아야 함)
+- 훅 설정이 포함된 `hooks.json` 파일이 있어야 합니다 (이 파일에서 훅 이벤트 추출)
+- 폴더 이름은 소문자로, 단어는 하이픈으로 구분
+- 번들 에셋(스크립트, 유틸리티, 설정 파일)을 포함할 수 있습니다
+- 번들 스크립트는 README.md와 hooks.json에서 참조되어야 합니다
+- [GitHub Copilot hooks 사양](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/use-hooks)을 따릅니다
+- 선택적으로 분류를 위한 `tags` 필드를 포함합니다
 
-#### Workflow Files (workflows/*.md)
-- Each workflow is a standalone `.md` file in the `workflows/` directory
-- Must have `name` field (human-readable name)
-- Must have `description` field (wrapped in single quotes, not empty)
-- Contains agentic workflow frontmatter (`on`, `permissions`, `safe-outputs`) and natural language instructions
-- File names should be lower case with words separated by hyphens
-- Only `.md` files are accepted — `.yml`, `.yaml`, and `.lock.yml` files are blocked by CI
-- Follow the [GitHub Agentic Workflows specification](https://github.github.com/gh-aw/reference/workflow-structure/)
+#### Workflow 파일 (workflows/*.md)
+- 각 워크플로우는 `workflows/` 디렉토리의 독립형 `.md` 파일입니다
+- `name` 필드가 있어야 합니다 (사람이 읽을 수 있는 이름)
+- `description` 필드가 있어야 합니다 (작은따옴표로 감싸기, 비어있지 않아야 함)
+- Agentic workflow frontmatter (`on`, `permissions`, `safe-outputs`)와 자연어 인스트럭션을 포함합니다
+- 파일 이름은 소문자로, 단어는 하이픈으로 구분
+- `.md` 파일만 허용됩니다 — `.yml`, `.yaml`, `.lock.yml` 파일은 CI에서 차단됩니다
+- [GitHub Agentic Workflows 사양](https://github.github.com/gh-aw/reference/workflow-structure/)을 따릅니다
 
-#### Plugin Folders (plugins/*)
-- Each plugin is a folder containing a `.github/plugin/plugin.json` file with metadata
-- plugin.json must have `name` field (matching the folder name)
-- plugin.json must have `description` field (describing the plugin's purpose)
-- plugin.json must have `version` field (semantic version, e.g., "1.0.0")
-- Plugin content is defined declaratively in plugin.json using Claude Code spec fields (`agents`, `commands`, `skills`). Source files live in top-level directories and are materialized into plugins by CI.
-- The `marketplace.json` file is automatically generated from all plugins during build
-- Plugins are discoverable and installable via GitHub Copilot CLI
+#### Plugin 폴더 (plugins/*)
+- 각 플러그인은 메타데이터가 포함된 `.github/plugin/plugin.json` 파일이 있는 폴더입니다
+- plugin.json에는 `name` 필드가 있어야 합니다 (폴더 이름과 일치)
+- plugin.json에는 `description` 필드가 있어야 합니다 (플러그인의 목적 설명)
+- plugin.json에는 `version` 필드가 있어야 합니다 (시맨틱 버전, 예: "1.0.0")
+- 플러그인 콘텐츠는 Claude Code 사양 필드 (`agents`, `commands`, `skills`)를 사용하여 plugin.json에 선언적으로 정의됩니다. 소스 파일은 최상위 디렉토리에 있으며 CI에 의해 플러그인으로 구체화됩니다.
+- `marketplace.json` 파일은 빌드 시 모든 플러그인에서 자동으로 생성됩니다
+- 플러그인은 GitHub Copilot CLI를 통해 검색 및 설치할 수 있습니다
 
-### Adding New Resources
+### 새 리소스 추가
 
-When adding a new agent, instruction, skill, hook, workflow, or plugin:
+새 에이전트, 인스트럭션, 스킬, 훅, 워크플로우 또는 플러그인을 추가할 때:
 
-**For Agents and Instructions:**
-1. Create the file with proper front matter
-2. Add the file to the appropriate directory
-3. Update the README.md by running: `npm run build`
-4. Verify the resource appears in the generated README
+**Agents 및 Instructions의 경우:**
+1. 적절한 front matter가 포함된 파일을 생성합니다
+2. 해당 디렉토리에 파일을 추가합니다
+3. `npm run build`를 실행하여 README.md를 업데이트합니다
+4. 생성된 README에 리소스가 표시되는지 확인합니다
 
-**For Hooks:**
-1. Create a new folder in `hooks/` with a descriptive name
-2. Create `README.md` with proper frontmatter (name, description, hooks, tags)
-3. Create `hooks.json` with hook configuration following GitHub Copilot hooks spec
-4. Add any bundled scripts or assets to the folder
-5. Make scripts executable: `chmod +x script.sh`
-6. Update the README.md by running: `npm run build`
-7. Verify the hook appears in the generated README
-
-
-**For Workflows:**
-1. Create a new `.md` file in `workflows/` with a descriptive name (e.g., `daily-issues-report.md`)
-2. Include frontmatter with `name` and `description`, plus agentic workflow fields (`on`, `permissions`, `safe-outputs`)
-3. Compile with `gh aw compile --validate` to verify it's valid
-4. Update the README.md by running: `npm run build`
-5. Verify the workflow appears in the generated README
+**Hooks의 경우:**
+1. `hooks/`에 설명적인 이름으로 새 폴더를 생성합니다
+2. 적절한 frontmatter (name, description, hooks, tags)가 포함된 `README.md`를 생성합니다
+3. GitHub Copilot hooks 사양에 따라 훅 설정이 포함된 `hooks.json`을 생성합니다
+4. 폴더에 번들 스크립트나 에셋을 추가합니다
+5. 스크립트를 실행 가능하게 만듭니다: `chmod +x script.sh`
+6. `npm run build`를 실행하여 README.md를 업데이트합니다
+7. 생성된 README에 훅이 표시되는지 확인합니다
 
 
-**For Skills:**
-1. Run `npm run skill:create` to scaffold a new skill folder
-2. Edit the generated SKILL.md file with your instructions
-3. Add any bundled assets (scripts, templates, data) to the skill folder
-4. Run `npm run skill:validate` to validate the skill structure
-5. Update the README.md by running: `npm run build`
-6. Verify the skill appears in the generated README
+**Workflows의 경우:**
+1. `workflows/`에 설명적인 이름으로 새 `.md` 파일을 생성합니다 (예: `daily-issues-report.md`)
+2. `name`과 `description`, 그리고 agentic workflow 필드 (`on`, `permissions`, `safe-outputs`)가 포함된 frontmatter를 포함합니다
+3. `gh aw compile --validate`로 컴파일하여 유효한지 확인합니다
+4. `npm run build`를 실행하여 README.md를 업데이트합니다
+5. 생성된 README에 워크플로우가 표시되는지 확인합니다
 
-**For Plugins:**
-1. Run `npm run plugin:create -- --name <plugin-name>` to scaffold a new plugin
-2. Define agents, commands, and skills in `plugin.json` using Claude Code spec fields
-3. Edit the generated `plugin.json` with your metadata
-4. Run `npm run plugin:validate` to validate the plugin structure
-5. Run `npm run build` to update README.md and marketplace.json
-6. Verify the plugin appears in `.github/plugin/marketplace.json`
 
-**For External Plugins:**
-1. Edit `plugins/external.json` and add an entry with `name`, `source`, `description`, and `version`
-2. The `source` field should be an object specifying a GitHub repo, git URL, npm package, or pip package (see [CONTRIBUTING.md](CONTRIBUTING.md#adding-external-plugins))
-3. Run `npm run build` to regenerate marketplace.json
-4. Verify the external plugin appears in `.github/plugin/marketplace.json`
+**Skills의 경우:**
+1. `npm run skill:create`를 실행하여 새 스킬 폴더를 스캐폴딩합니다
+2. 생성된 SKILL.md 파일을 인스트럭션으로 편집합니다
+3. 스킬 폴더에 번들 에셋(스크립트, 템플릿, 데이터)을 추가합니다
+4. `npm run skill:validate`를 실행하여 스킬 구조를 검증합니다
+5. `npm run build`를 실행하여 README.md를 업데이트합니다
+6. 생성된 README에 스킬이 표시되는지 확인합니다
 
-### Testing Instructions
+**Plugins의 경우:**
+1. `npm run plugin:create -- --name <plugin-name>`을 실행하여 새 플러그인을 스캐폴딩합니다
+2. Claude Code 사양 필드를 사용하여 `plugin.json`에 에이전트, 명령 및 스킬을 정의합니다
+3. 생성된 `plugin.json`을 메타데이터로 편집합니다
+4. `npm run plugin:validate`를 실행하여 플러그인 구조를 검증합니다
+5. `npm run build`를 실행하여 README.md와 marketplace.json을 업데이트합니다
+6. `.github/plugin/marketplace.json`에 플러그인이 표시되는지 확인합니다
+
+**외부 Plugins의 경우:**
+1. `plugins/external.json`을 편집하고 `name`, `source`, `description`, `version`이 포함된 항목을 추가합니다
+2. `source` 필드는 GitHub 저장소, git URL, npm 패키지 또는 pip 패키지를 지정하는 객체여야 합니다 ([CONTRIBUTING.md](CONTRIBUTING.md#adding-external-plugins) 참조)
+3. `npm run build`를 실행하여 marketplace.json을 재생성합니다
+4. `.github/plugin/marketplace.json`에 외부 플러그인이 표시되는지 확인합니다
+
+### 테스트 지침
 
 ```bash
-# Run all validation checks
+# 모든 검증 확인 실행
 npm run plugin:validate
 npm run skill:validate
 
-# Build and verify README generation
+# README 생성 빌드 및 확인
 npm run build
 
-# Fix line endings (required before committing)
+# 줄 끝 수정 (commit 전 필수)
 bash scripts/fix-line-endings.sh
 ```
 
-Before committing:
-- Ensure all markdown front matter is correctly formatted
-- Verify file names follow the lower-case-with-hyphens convention
-- Run `npm run build` to update the README
-- **Always run `bash scripts/fix-line-endings.sh`** to normalize line endings (CRLF → LF)
-- Check that your new resource appears correctly in the README
+commit 전:
+- 모든 마크다운 front matter가 올바르게 포맷되었는지 확인합니다
+- 파일 이름이 소문자-하이픈 규칙을 따르는지 확인합니다
+- `npm run build`를 실행하여 README를 업데이트합니다
+- **항상 `bash scripts/fix-line-endings.sh`를 실행**하여 줄 끝을 정규화합니다 (CRLF → LF)
+- 새 리소스가 README에 올바르게 표시되는지 확인합니다
 
-## Code Style Guidelines
+## 코드 스타일 가이드라인
 
-### Markdown Files
-- Use proper front matter with required fields
-- Keep descriptions concise and informative
-- Wrap description field values in single quotes
-- Use lower-case file names with hyphens as separators
+### 마크다운 파일
+- 필수 필드가 포함된 적절한 front matter를 사용합니다
+- 설명은 간결하고 유익하게 작성합니다
+- description 필드 값은 작은따옴표로 감쌉니다
+- 소문자 파일 이름에 하이픈을 구분자로 사용합니다
 
-### JavaScript/Node.js Scripts
-- Located in `eng/` and `scripts/` directories
-- Follow Node.js ES module conventions (`.mjs` extension)
-- Use clear, descriptive function and variable names
+### JavaScript/Node.js 스크립트
+- `eng/` 및 `scripts/` 디렉토리에 위치합니다
+- Node.js ES 모듈 규칙을 따릅니다 (`.mjs` 확장자)
+- 명확하고 설명적인 함수 및 변수 이름을 사용합니다
 
-## Pull Request Guidelines
+## Pull Request 가이드라인
 
-When creating a pull request:
+Pull request를 생성할 때:
 
-> **Important:** All pull requests should target the **`staged`** branch, not `main`.
+> **중요:** 모든 pull request는 `main`이 아닌 **`staged`** 브랜치를 대상으로 해야 합니다.
 
-1. **README updates**: New files should automatically be added to the README when you run `npm run build`
-2. **Front matter validation**: Ensure all markdown files have the required front matter fields
-3. **File naming**: Verify all new files follow the lower-case-with-hyphens naming convention
-4. **Build check**: Run `npm run build` before committing to verify README generation
-5. **Line endings**: **Always run `bash scripts/fix-line-endings.sh`** to normalize line endings to LF (Unix-style)
-6. **Description**: Provide a clear description of what your agent/instruction does
-7. **Testing**: If adding a plugin, run `npm run plugin:validate` to ensure validity
+1. **README 업데이트**: `npm run build`를 실행하면 새 파일이 자동으로 README에 추가됩니다
+2. **Front matter 검증**: 모든 마크다운 파일에 필수 front matter 필드가 있는지 확인합니다
+3. **파일 명명**: 모든 새 파일이 소문자-하이픈 명명 규칙을 따르는지 확인합니다
+4. **빌드 확인**: commit 전에 `npm run build`를 실행하여 README 생성을 확인합니다
+5. **줄 끝**: **항상 `bash scripts/fix-line-endings.sh`를 실행**하여 줄 끝을 LF (Unix 스타일)로 정규화합니다
+6. **설명**: 에이전트/인스트럭션이 무엇을 하는지 명확한 설명을 제공합니다
+7. **테스트**: 플러그인을 추가하는 경우 `npm run plugin:validate`를 실행하여 유효성을 확인합니다
 
-### Pre-commit Checklist
+### Pre-commit 체크리스트
 
-Before submitting your PR, ensure you have:
-- [ ] Run `npm install` (or `npm ci`) to install dependencies
-- [ ] Run `npm run build` to generate the updated README.md
-- [ ] Run `bash scripts/fix-line-endings.sh` to normalize line endings
-- [ ] Verified that all new files have proper front matter
-- [ ] Tested that your contribution works with GitHub Copilot
-- [ ] Checked that file names follow the naming convention
+PR을 제출하기 전에 다음을 확인하십시오:
+- [ ] `npm install` (또는 `npm ci`)을 실행하여 의존성을 설치했습니다
+- [ ] `npm run build`를 실행하여 업데이트된 README.md를 생성했습니다
+- [ ] `bash scripts/fix-line-endings.sh`를 실행하여 줄 끝을 정규화했습니다
+- [ ] 모든 새 파일에 적절한 front matter가 있는지 확인했습니다
+- [ ] 기여한 내용이 GitHub Copilot에서 작동하는지 테스트했습니다
+- [ ] 파일 이름이 명명 규칙을 따르는지 확인했습니다
 
-### Code Review Checklist
+### 코드 리뷰 체크리스트
 
-For instruction files (*.instructions.md):
-- [ ] Has markdown front matter
-- [ ] Has non-empty `description` field wrapped in single quotes
-- [ ] Has `applyTo` field with file patterns
-- [ ] File name is lower case with hyphens
+Instruction 파일 (*.instructions.md)의 경우:
+- [ ] 마크다운 front matter가 있습니다
+- [ ] 작은따옴표로 감싼 비어있지 않은 `description` 필드가 있습니다
+- [ ] 파일 패턴이 포함된 `applyTo` 필드가 있습니다
+- [ ] 파일 이름이 소문자 하이픈 형식입니다
 
-For agent files (*.agent.md):
-- [ ] Has markdown front matter
-- [ ] Has non-empty `description` field wrapped in single quotes
-- [ ] Has `name` field with human-readable name (e.g., "Address Comments" not "address-comments")
-- [ ] File name is lower case with hyphens
-- [ ] Includes `model` field (strongly recommended)
-- [ ] Considers using `tools` field
+Agent 파일 (*.agent.md)의 경우:
+- [ ] 마크다운 front matter가 있습니다
+- [ ] 작은따옴표로 감싼 비어있지 않은 `description` 필드가 있습니다
+- [ ] 사람이 읽을 수 있는 이름의 `name` 필드가 있습니다 (예: "Address Comments"이지 "address-comments"가 아님)
+- [ ] 파일 이름이 소문자 하이픈 형식입니다
+- [ ] `model` 필드가 포함되어 있습니다 (강력 권장)
+- [ ] `tools` 필드 사용을 고려합니다
 
-For skills (skills/*/):
-- [ ] Folder contains a SKILL.md file
-- [ ] SKILL.md has markdown front matter
-- [ ] Has `name` field matching folder name (lowercase with hyphens, max 64 characters)
-- [ ] Has non-empty `description` field wrapped in single quotes (10-1024 characters)
-- [ ] Folder name is lower case with hyphens
-- [ ] Any bundled assets are referenced in SKILL.md
-- [ ] Bundled assets are under 5MB per file
+Skills (skills/*/)의 경우:
+- [ ] 폴더에 SKILL.md 파일이 포함되어 있습니다
+- [ ] SKILL.md에 마크다운 front matter가 있습니다
+- [ ] 폴더 이름과 일치하는 `name` 필드가 있습니다 (소문자 하이픈 형식, 최대 64자)
+- [ ] 작은따옴표로 감싼 비어있지 않은 `description` 필드가 있습니다 (10-1024자)
+- [ ] 폴더 이름이 소문자 하이픈 형식입니다
+- [ ] 모든 번들 에셋이 SKILL.md에서 참조됩니다
+- [ ] 번들 에셋이 파일당 5MB 미만입니다
 
-For hook folders (hooks/*/):
-- [ ] Folder contains a README.md file with markdown front matter
-- [ ] Has `name` field with human-readable name
-- [ ] Has non-empty `description` field wrapped in single quotes
-- [ ] Has `hooks.json` file with valid hook configuration (hook events extracted from this file)
-- [ ] Folder name is lower case with hyphens
-- [ ] Any bundled scripts are executable and referenced in README.md
-- [ ] Follows [GitHub Copilot hooks specification](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/use-hooks)
-- [ ] Optionally includes `tags` array field for categorization
+Hook 폴더 (hooks/*/)의 경우:
+- [ ] 폴더에 마크다운 front matter가 포함된 README.md 파일이 있습니다
+- [ ] 사람이 읽을 수 있는 이름의 `name` 필드가 있습니다
+- [ ] 작은따옴표로 감싼 비어있지 않은 `description` 필드가 있습니다
+- [ ] 유효한 훅 설정이 포함된 `hooks.json` 파일이 있습니다 (이 파일에서 훅 이벤트 추출)
+- [ ] 폴더 이름이 소문자 하이픈 형식입니다
+- [ ] 모든 번들 스크립트가 실행 가능하고 README.md에서 참조됩니다
+- [ ] [GitHub Copilot hooks 사양](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/use-hooks)을 따릅니다
+- [ ] 선택적으로 분류를 위한 `tags` 배열 필드를 포함합니다
 
-For workflow files (workflows/*.md):
-- [ ] File has markdown front matter
-- [ ] Has `name` field with human-readable name
-- [ ] Has non-empty `description` field wrapped in single quotes
-- [ ] File name is lower case with hyphens
-- [ ] Contains `on` and `permissions` in frontmatter
-- [ ] Workflow uses least-privilege permissions and safe outputs
-- [ ] No `.yml`, `.yaml`, or `.lock.yml` files included
-- [ ] Follows [GitHub Agentic Workflows specification](https://github.github.com/gh-aw/reference/workflow-structure/)
+Workflow 파일 (workflows/*.md)의 경우:
+- [ ] 파일에 마크다운 front matter가 있습니다
+- [ ] 사람이 읽을 수 있는 이름의 `name` 필드가 있습니다
+- [ ] 작은따옴표로 감싼 비어있지 않은 `description` 필드가 있습니다
+- [ ] 파일 이름이 소문자 하이픈 형식입니다
+- [ ] frontmatter에 `on`과 `permissions`가 포함되어 있습니다
+- [ ] 워크플로우가 최소 권한 원칙과 safe outputs를 사용합니다
+- [ ] `.yml`, `.yaml`, `.lock.yml` 파일이 포함되지 않았습니다
+- [ ] [GitHub Agentic Workflows 사양](https://github.github.com/gh-aw/reference/workflow-structure/)을 따릅니다
 
-For plugins (plugins/*/):
-- [ ] Directory contains a `.github/plugin/plugin.json` file
-- [ ] Directory contains a `README.md` file
-- [ ] `plugin.json` has `name` field matching the directory name (lowercase with hyphens)
-- [ ] `plugin.json` has non-empty `description` field
-- [ ] `plugin.json` has `version` field (semantic version, e.g., "1.0.0")
-- [ ] Directory name is lower case with hyphens
-- [ ] If `keywords` is present, it is an array of lowercase hyphenated strings
-- [ ] If `agents`, `commands`, or `skills` arrays are present, each entry is a valid relative path
-- [ ] The plugin does not reference non-existent files
-- [ ] Run `npm run build` to verify marketplace.json is updated correctly
+Plugins (plugins/*/)의 경우:
+- [ ] 디렉토리에 `.github/plugin/plugin.json` 파일이 포함되어 있습니다
+- [ ] 디렉토리에 `README.md` 파일이 포함되어 있습니다
+- [ ] `plugin.json`에 디렉토리 이름과 일치하는 `name` 필드가 있습니다 (소문자 하이픈 형식)
+- [ ] `plugin.json`에 비어있지 않은 `description` 필드가 있습니다
+- [ ] `plugin.json`에 `version` 필드가 있습니다 (시맨틱 버전, 예: "1.0.0")
+- [ ] 디렉토리 이름이 소문자 하이픈 형식입니다
+- [ ] `keywords`가 있는 경우 소문자 하이픈 문자열의 배열입니다
+- [ ] `agents`, `commands`, `skills` 배열이 있는 경우 각 항목이 유효한 상대 경로입니다
+- [ ] 플러그인이 존재하지 않는 파일을 참조하지 않습니다
+- [ ] `npm run build`를 실행하여 marketplace.json이 올바르게 업데이트되었는지 확인합니다
 
-## Contributing
+## 기여
 
-This is a community-driven project. Contributions are welcome! Please see:
-- [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community standards
-- [SECURITY.md](SECURITY.md) for security policies
+이것은 커뮤니티 주도 프로젝트입니다. 기여를 환영합니다! 다음을 참조하십시오:
+- [CONTRIBUTING.md](CONTRIBUTING.md) - 기여 가이드라인
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - 커뮤니티 표준
+- [SECURITY.md](SECURITY.md) - 보안 정책
 
-## MCP Server
+## MCP 서버
 
-The repository includes an MCP (Model Context Protocol) Server for searching and installing resources directly from this repository. Docker is required to run the server.
+이 저장소에는 이 저장소에서 직접 리소스를 검색하고 설치하기 위한 MCP (Model Context Protocol) 서버가 포함되어 있습니다. 서버를 실행하려면 Docker가 필요합니다.
 
-## License
+## 라이선스
 
-MIT License - see [LICENSE](LICENSE) for details
+MIT License - 자세한 내용은 [LICENSE](LICENSE)를 참조하십시오.

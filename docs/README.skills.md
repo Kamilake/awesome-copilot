@@ -1,30 +1,30 @@
-# 🎯 Agent Skills
+# 🎯 Agent Skill
 
-Agent Skills are self-contained folders with instructions and bundled resources that enhance AI capabilities for specialized tasks. Based on the [Agent Skills specification](https://agentskills.io/specification), each skill contains a `SKILL.md` file with detailed instructions that agents load on-demand.
+Agent Skill은 특화된 작업을 위한 AI 기능을 향상시키는 instruction과 번들 리소스가 포함된 독립형 폴더입니다. [Agent Skills 사양](https://agentskills.io/specification)을 기반으로 하며, 각 skill에는 agent가 필요 시 로드하는 상세 instruction이 담긴 `SKILL.md` 파일이 포함되어 있습니다.
 
-Skills differ from other primitives by supporting bundled assets (scripts, code samples, reference data) that agents can utilize when performing specialized tasks.
-### How to Contribute
+Skill은 번들 에셋(스크립트, 코드 샘플, 참조 데이터)을 지원한다는 점에서 다른 프리미티브와 차별화됩니다. Agent는 특화된 작업을 수행할 때 이러한 에셋을 활용할 수 있습니다.
+### 기여 방법
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md#adding-skills) for guidelines on how to contribute new agent skills, improve existing ones, and share your use cases.
+새로운 agent skill을 기여하거나, 기존 skill을 개선하거나, 사용 사례를 공유하는 방법은 [CONTRIBUTING.md](../CONTRIBUTING.md#adding-skills)를 참조하세요.
 
-### How to Use Agent Skills
+### Agent Skill 사용 방법
 
-**What's Included:**
-- Each skill is a folder containing a `SKILL.md` instruction file
-- Skills may include helper scripts, code templates, or reference data
-- Skills follow the Agent Skills specification for maximum compatibility
+**포함 내용:**
+- 각 skill은 `SKILL.md` instruction 파일이 포함된 폴더입니다
+- Skill에는 헬퍼 스크립트, 코드 템플릿 또는 참조 데이터가 포함될 수 있습니다
+- Skill은 최대 호환성을 위해 Agent Skills 사양을 따릅니다
 
-**When to Use:**
-- Skills are ideal for complex, repeatable workflows that benefit from bundled resources
-- Use skills when you need code templates, helper utilities, or reference data alongside instructions
-- Skills provide progressive disclosure - loaded only when needed for specific tasks
+**사용 시기:**
+- Skill은 번들 리소스가 유용한 복잡하고 반복적인 워크플로우에 적합합니다
+- 코드 템플릿, 헬퍼 유틸리티 또는 참조 데이터가 instruction과 함께 필요할 때 skill을 사용하세요
+- Skill은 점진적 공개 방식을 제공합니다 - 특정 작업에 필요할 때만 로드됩니다
 
-**Usage:**
-- Browse the skills table below to find relevant capabilities
-- Copy the skill folder to your local skills directory
-- Reference skills in your prompts or let the agent discover them automatically
+**사용법:**
+- 아래 skill 테이블에서 관련 기능을 찾아보세요
+- Skill 폴더를 로컬 skill 디렉토리에 복사하세요
+- 프롬프트에서 skill을 참조하거나 agent가 자동으로 검색하도록 하세요
 
-| Name | Description | Bundled Assets |
+| 이름 | 설명 | 번들 에셋 |
 | ---- | ----------- | -------------- |
 | [add-educational-comments](../skills/add-educational-comments/SKILL.md) | Add educational comments to the file specified, or prompt asking for file to comment if one is not provided. | None |
 | [agent-governance](../skills/agent-governance/SKILL.md) | Patterns and techniques for adding governance, safety, and trust controls to AI agent systems. Use this skill when:<br />- Building AI agents that call external tools (APIs, databases, file systems)<br />- Implementing policy-based access controls for agent tool usage<br />- Adding semantic intent classification to detect dangerous prompts<br />- Creating trust scoring systems for multi-agent workflows<br />- Building audit trails for agent actions and decisions<br />- Enforcing rate limits, content filters, or tool restrictions on agents<br />- Working with any agent framework (PydanticAI, CrewAI, OpenAI Agents, LangChain, AutoGen) | None |

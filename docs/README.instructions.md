@@ -1,22 +1,22 @@
-# 📋 Custom Instructions
+# 📋 커스텀 Instruction
 
-Team and project-specific instructions to enhance GitHub Copilot's behavior for specific technologies and coding practices.
-### How to Contribute
+특정 기술과 코딩 관행에 대한 GitHub Copilot의 동작을 향상시키기 위한 팀 및 프로젝트별 instruction입니다.
+### 기여 방법
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md#adding-instructions) for guidelines on how to contribute new instructions, improve existing ones, and share your use cases.
+새로운 instruction을 기여하거나, 기존 instruction을 개선하거나, 사용 사례를 공유하는 방법은 [CONTRIBUTING.md](../CONTRIBUTING.md#adding-instructions)를 참조하세요.
 
-### How to Use Custom Instructions
+### 커스텀 Instruction 사용 방법
 
-**To Install:**
-- Click the **VS Code** or **VS Code Insiders** install button for the instruction you want to use
-- Download the `*.instructions.md` file and manually add it to your project's instruction collection
+**설치 방법:**
+- 사용하려는 instruction의 **VS Code** 또는 **VS Code Insiders** 설치 버튼을 클릭하세요
+- `*.instructions.md` 파일을 다운로드하여 프로젝트의 instruction 컬렉션에 수동으로 추가하세요
 
-**To Use/Apply:**
-- Copy these instructions to your `.github/copilot-instructions.md` file in your workspace
-- Create task-specific `*.instructions.md` files in your workspace's `.github/instructions/` folder (e.g., `.github/instructions/my-csharp-rules.instructions.md`)
-- Instructions automatically apply to Copilot behavior once installed in your workspace
+**사용/적용 방법:**
+- 워크스페이스의 `.github/copilot-instructions.md` 파일에 이 instruction을 복사하세요
+- 워크스페이스의 `.github/instructions/` 폴더에 작업별 `*.instructions.md` 파일을 생성하세요 (예: `.github/instructions/my-csharp-rules.instructions.md`)
+- 워크스페이스에 설치되면 instruction이 Copilot 동작에 자동으로 적용됩니다
 
-| Title | Description |
+| 제목 | 설명 |
 | ----- | ----------- |
 | [.NET Framework Development](../instructions/dotnet-framework.instructions.md)<br />[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://aka.ms/awesome-copilot/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fgithub%2Fawesome-copilot%2Fmain%2Finstructions%2Fdotnet-framework.instructions.md)<br />[![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://aka.ms/awesome-copilot/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fgithub%2Fawesome-copilot%2Fmain%2Finstructions%2Fdotnet-framework.instructions.md) | Guidance for working with .NET Framework projects. Includes project structure, C# language version, NuGet management, and best practices. |
 | [.NET Framework Upgrade Specialist](../instructions/dotnet-upgrade.instructions.md)<br />[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://aka.ms/awesome-copilot/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fgithub%2Fawesome-copilot%2Fmain%2Finstructions%2Fdotnet-upgrade.instructions.md)<br />[![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://aka.ms/awesome-copilot/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fgithub%2Fawesome-copilot%2Fmain%2Finstructions%2Fdotnet-upgrade.instructions.md) | Specialized agent for comprehensive .NET framework upgrades with progressive tracking and validation |
